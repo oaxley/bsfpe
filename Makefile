@@ -3,7 +3,7 @@
 #
 # @brief	Makefile to build and run the docker container
 
-.PHONY: build run
+.PHONY: build run clean
 
 # build a new image
 build:
@@ -12,3 +12,7 @@ build:
 # create a new interactive container from the image
 run:
 	@docker run -it --rm linuxvm:latest
+
+# clean docker system (dangling images + cache)
+clean:
+	@docker system prune
