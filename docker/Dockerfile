@@ -18,7 +18,8 @@ RUN : \
     && apt update \
     && apt install --quiet -y --no-install-recommends \
         python3 xxd \
-        netcat iproute2
+        netcat iproute2 \
+        vim
 
 # add the generic user
 RUN : \
