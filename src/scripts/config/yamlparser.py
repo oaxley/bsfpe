@@ -70,7 +70,11 @@ for part in parts[:-1]:
 
 if isinstance(section, list):
     if option.isdigit():
-        print(section[int(option)])
+        try:
+            print(section[int(option)])
+        except IndexError:
+            logger.error(f"Index out of range in {path}")
+            sys.exit(1)
 
 elif isinstance(section, dict):
     if option not in section:
