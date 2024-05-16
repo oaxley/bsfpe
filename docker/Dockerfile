@@ -17,9 +17,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN : \
     && apt update \
     && apt install --quiet -y --no-install-recommends \
-        python3 xxd \
+        python3 python3-pip xxd \
         netcat iproute2 \
-        vim
+        vim cron
+
+# install python packages
+COPY docker/requirements.txt /tmp/requirements.txt
+RUN : \
+    && pip install --no-cache-dir -r /tmp/requirements.txt \
+    && rm -f /tmp/requirements.txt
 
 # add the generic user
 RUN : \
