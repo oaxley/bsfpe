@@ -5,16 +5,11 @@
 #
 # @brief    Bash Wrapper around Multicast Publisher/Receiver
 
-#----- globals
-
-SCRIPT_DIR=${BSFPE_DIR}/scripts/mcast
-
-
 #----- functions
 mcast::pub() {
-  python3 ${SCRIPT_DIR}/mcastpub.py $*
+  python3 ${BSFPE_LIBRARY_DIR}/scripts/mcast/mcastpub.py $*
 }
 
 mcast::recv() {
-  python3 ${SCRIPT_DIR}/mcastrcv.py $*
+  python3 ${BSFPE_LIBRARY_DIR}/scripts/mcast/mcastrcv.py $*
 }

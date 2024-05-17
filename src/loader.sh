@@ -6,8 +6,9 @@
 # @brief    Main loader script
 
 #----- globals
-
-BSFPE_DIR=$(dirname ${BASH_SOURCE})
+# export our location for all the scripts
+BSFPE_LIBRARY_DIR=$(dirname ${BASH_SOURCE})
+export BSFPE_LIBRARY_DIR
 
 
 #----- functions
@@ -22,10 +23,7 @@ _popd() {
 #----- begin
 
 # ensure we are in the loader directory
-_pushd ${BSFPE_DIR}
-
-# export our location for all the scripts
-export BSFPE_DIR
+_pushd ${BSFPE_LIBRARY_DIR}
 
 # go through all the directories and load the functions
 for DIR in */; do
@@ -38,5 +36,4 @@ done
 _popd
 
 # clean the environment
-unset BSFPE_DIR
 unset _pushd _popd
