@@ -28,3 +28,14 @@ This directory holds only Bash functions (typically only few lines)
 | `mac_address` | retrieve the MAC address of an interface |
 | `ip_address` | retrieve the IP address of an interface |
 
+### Logger package (`logger::`)
+
+| function | description |
+| --- | --- |
+| `setLogLevel` | set the current log level (default: INFO) |
+| `debug` | print a message with the DEBUG log level |
+| `info` | print a message with the INFO log level |
+| `warning` | print a message with the WARNING log level |
+| `error` | print a message with the ERROR log level |
+| `critical` | print a message with the CRITICAL log level |
+
