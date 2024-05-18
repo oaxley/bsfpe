@@ -11,6 +11,7 @@ commands::clean::help() {
   echo "kvstore.sh - Clean command"
   echo "Syntax:"
   echo "    clean"
+  echo "        remove expired and deprecated keys"
 }
 
 # main function
