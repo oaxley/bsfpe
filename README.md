@@ -3,12 +3,33 @@
 ## Description
 
 This repository contains a suite of scripts and functions in Python or Bash that I developed along
-the years and extensively used production environment. They use only standard *nix commands as well
-as a little bit of python (but no fancy libraries).  
-The goal is to left production servers as bare as they can be.
+the years and extensively used in production environment.  
 
-As there are no secrets or trademarks involved, and they rely only on common "development" sense,
-I'm giving them for free, as it might help others having the same issues/requirements.
+## Functions
+
+`logger.sh`
+> print information in a standard and cohesive way accross scripts
+
+`network.sh`
+> utilities to help with network tasks and troubleshoot  
+
+`random.sh`
+> functions to help with random number generation in scripts  
+
+`uuid.sh`
+> generate random UUID numbers
+
+## Scripts
+
+`config`
+> INI, TOML and YAML configuration parser and key lookup  
+
+`mcast`
+> scripts for listening & publishing multicast packets with record/replay capabilities  
+
+`kvstore`
+> simple Key/Value store for scripts  
+
 
 
 ## License
