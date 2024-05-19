@@ -1,11 +1,13 @@
 # Bash Scripts for Production Environment (BSFPE)
 
-## Description
+## Purpose
 
 This repository contains a suite of scripts and functions in Python or Bash that I developed along
 the years and extensively used in production environment.  
 
-## Functions
+## Description
+
+### Functions
 
 `logger.sh`
 > print information in a standard and cohesive way accross scripts
@@ -19,7 +21,7 @@ the years and extensively used in production environment.
 `uuid.sh`
 > generate random UUID numbers
 
-## Scripts
+### Scripts
 
 `config`
 > INI, TOML and YAML configuration parser and key lookup  
@@ -30,7 +32,13 @@ the years and extensively used in production environment.
 `kvstore`
 > simple Key/Value store for scripts  
 
+## Usage
 
+From your `.bashrc` or `.bash_profile` scripts, execute the loader:
+
+``` bash
+source ~/.bsfpe/loader.sh
+```
 
 ## License
 
