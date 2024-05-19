@@ -62,4 +62,9 @@ case "$1" in
     source ${SCRIPT_DIR}/commands/clean.sh
     commands::clean::main $*
     ;;
+  "print")
+    shift
+    source ${SCRIPT_DIR}/commands/print.sh
+    commands::print::main $*
+    ;;
 esac
