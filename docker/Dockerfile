@@ -19,7 +19,7 @@ RUN : \
     && apt install --quiet -y --no-install-recommends \
         python3 python3-pip xxd \
         netcat iproute2 \
-        vim cron
+        vim cron sudo
 
 # install python packages
 COPY docker/requirements.txt /tmp/requirements.txt
@@ -36,7 +36,8 @@ RUN : \
                --gecos "" \
                --disabled-password \
                --quiet \
-               ${USER}
+               ${USER} \
+    && echo "%${GROUP} ALL = (ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # copy the source files in the generic user home
 COPY --chown=${USER}:${GROUP} src/ /home/${USER}/.bsfpe
