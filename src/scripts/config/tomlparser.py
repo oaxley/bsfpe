@@ -24,6 +24,8 @@ logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s", level=loggin
 # command line parser
 parser = argparse.ArgumentParser()
 parser.add_argument("-f", "--file", metavar="FILE", help="The YAML configuration file")
+parser.add_argument("-s", "--sections", action="store_true", default=False, help="List all the available sections")
+parser.add_argument("-k", "--keys", action="store_true", default=False, help="List all the available keys in the section")
 parser.add_argument("key", help="The key to look for in the file")
 args = parser.parse_args()
 
@@ -34,6 +36,17 @@ try:
 except FileNotFoundError:
     logging.error(f"Cannot open TOML file [{args.file}]")
     sys.exit(1)
+
+if args.sections:
+    for k in config.keys():
+        print(k)
+    sys.exit(0)
+
+if args.keys:
+    if args.key in config:
+        for k in config[args.key].keys():
+            print(k)
+    sys.exit(0)
 
 # split the key in parts
 parts: List[str] = args.key.split('.')
