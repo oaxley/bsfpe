@@ -49,12 +49,12 @@ system::patch_revert() {
 
 # return the CPU type
 system::cpu_type() {
-  cat /proc/cpuinfo | grep 'model name' | tail -1 | cut -d: -f2
+  grep 'model name' /proc/cpuinfo | tail -1 | cut -d: -f2
 }
 
 # return the CPU count
 system::cpu_count() {
-  cat /proc/cpuinfo | grep 'processor' | wc -l
+  grep 'processor' /proc/cpuinfo | wc -l
 }
 
 # check is a CPU flag is present
@@ -63,6 +63,6 @@ system::cpu_count() {
 # return:
 #   0 if the flag is present, 1 otherwise
 system::cpu_flag() {
-  cat /proc/cpuinfo | grep flags | head -1 | xargs -n 1 | grep "^$1$" >/dev/null
+  grep 'flags' /proc/cpuinfo | head -1 | xargs -n 1 | grep "^$1$" >/dev/null
   return $?
 }
