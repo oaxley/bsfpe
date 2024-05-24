@@ -39,3 +39,14 @@ This directory holds only Bash functions (typically only few lines)
 | `error` | print a message with the ERROR log level |
 | `critical` | print a message with the CRITICAL log level |
 
+### System package (`system::`)
+
+| function | description |
+| --- | --- |
+| `file_compare` | compare if two files are identical |
+| `patch_create` | create a patch from two files |
+| `patch_apply` | apply a patch to a file |
+| `patch_revert` | revert the patch applied to a file |
+| `cpu_type` | retrieve the CPU type from /proc/cpuinfo |
+| `cpu_count` | retrieve the CPU count from /proc/cpuinfo |
+| `cpu_flag` | check if a flag is present on the CPU |

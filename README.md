@@ -18,6 +18,9 @@ the years and extensively used in production environment.
 `random.sh`
 > functions to help with random number generation in scripts  
 
+`system.sh`
+> basic system functions
+
 `uuid.sh`
 > generate random UUID numbers
 
