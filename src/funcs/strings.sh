@@ -52,7 +52,7 @@ strings::to_upper() {
 #   $1 : the string
 # return:
 #   The same string, in lowercase
-strings::to_upper() {
+strings::to_lower() {
   local __string="$*"
   echo "${__string,,}"
 }
