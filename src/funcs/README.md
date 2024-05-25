@@ -50,3 +50,13 @@ This directory holds only Bash functions (typically only few lines)
 | `cpu_type` | retrieve the CPU type from /proc/cpuinfo |
 | `cpu_count` | retrieve the CPU count from /proc/cpuinfo |
 | `cpu_flag` | check if a flag is present on the CPU |
+
+### Strings package (`strings::`)
+
+| function | description |
+| --- | --- |
+| `ltrim` | remove white spaces at the beginning of a string |
+| `rtrim` | remove white spaces at the end of a string |
+| `trim` | remove white spaces both a the beginning and end of a string |
+| `to_upper` | convert a string to uppercase |
+| `to_lower` | convert a string to lowercase |
