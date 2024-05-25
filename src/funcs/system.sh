@@ -66,3 +66,13 @@ system::cpu_flag() {
   grep 'flags' /proc/cpuinfo | head -1 | xargs -n 1 | grep "^$1$" >/dev/null
   return $?
 }
+
+# retrieve OS Name
+system::os_name() {
+  uname -s
+}
+
+# retrieve OS Version
+system::os_version() {
+  uname -r
+}
