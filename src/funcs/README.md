@@ -60,3 +60,7 @@ This directory holds only Bash functions (typically only few lines)
 | `trim` | remove white spaces both a the beginning and end of a string |
 | `to_upper` | convert a string to uppercase |
 | `to_lower` | convert a string to lowercase |
+| `length` | return the length of a string |
+| `left` | extract N characters from the left |
+| `right` | extract N characters from the right |
+| `mid` | extract N characters from POS |
