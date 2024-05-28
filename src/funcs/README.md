@@ -50,6 +50,8 @@ This directory holds only Bash functions (typically only few lines)
 | `cpu_type` | retrieve the CPU type from /proc/cpuinfo |
 | `cpu_count` | retrieve the CPU count from /proc/cpuinfo |
 | `cpu_flag` | check if a flag is present on the CPU |
+| `os_name` | return the OS name |
+| `os_version` | return the OS version |
 
 ### Strings package (`strings::`)
 
@@ -64,3 +66,13 @@ This directory holds only Bash functions (typically only few lines)
 | `left` | extract N characters from the left |
 | `right` | extract N characters from the right |
 | `mid` | extract N characters from POS |
+
+## Execute package (`execute::`)
+
+| function | description |
+| --- | --- |
+| `wait_until` | wait n seconds before executing command |
+| `run_in` | execute the command in the specified directory |
+| `true` | always return TRUE (0) |
+| `false` | always return FALSE (1) |
+
