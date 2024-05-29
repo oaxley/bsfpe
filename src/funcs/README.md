@@ -76,3 +76,14 @@ This directory holds only Bash functions (typically only few lines)
 | `true` | always return TRUE (0) |
 | `false` | always return FALSE (1) |
 
+## GIT package (`git::`)
+
+| function | description |
+| --- | --- |
+| `repo_name` | retrieve the GIT repository name |
+| `repo_url` | retrieve the GIT origin URL |
+| `local_dir` | retrieve the GIT local directory |
+| `last_commit_sha1` | get the last commit SHA1 |
+| `last_commit_sha1_short` | get the last commit SHA1 (short) |
+| `active_branch` | retrieve the current active branch |
+| `is_working_tree` | True if we are in a GIT working tree |
