@@ -5,6 +5,8 @@
 #
 # @brief    Main loader script
 
+set -euo pipefail
+
 #----- globals
 # export our location for all the scripts
 BSFPE_LIBRARY_DIR=$(dirname ${BASH_SOURCE})
