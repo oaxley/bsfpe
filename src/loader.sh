@@ -5,7 +5,7 @@
 #
 # @brief    Main loader script
 
-set -euo pipefail
+set -uo pipefail
 
 #----- globals
 # export our location for all the scripts
