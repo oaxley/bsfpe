@@ -5,6 +5,11 @@
 #
 # @brief    Functions to ease GIT interaction
 
+#----- guards
+GIT_BIN=$(which git)
+[[ -z ${GIT_BIN} || ! -x ${GIT_BIN}]] && return
+
+
 #----- public
 
 # retrieve the GIT repository name
