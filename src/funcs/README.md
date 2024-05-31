@@ -67,7 +67,7 @@ This directory holds only Bash functions (typically only few lines)
 | `right` | extract N characters from the right |
 | `mid` | extract N characters from POS |
 
-## Execute package (`execute::`)
+### Execute package (`execute::`)
 
 | function | description |
 | --- | --- |
@@ -76,7 +76,7 @@ This directory holds only Bash functions (typically only few lines)
 | `true` | always return TRUE (0) |
 | `false` | always return FALSE (1) |
 
-## GIT package (`git::`)
+### GIT package (`git::`)
 
 | function | description |
 | --- | --- |
@@ -87,3 +87,18 @@ This directory holds only Bash functions (typically only few lines)
 | `last_commit_sha1_short` | get the last commit SHA1 (short) |
 | `active_branch` | retrieve the current active branch |
 | `is_working_tree` | True if we are in a GIT working tree |
+
+### Docker package (`docker::`)
+
+| function | description |
+| --- | --- |
+| `log_path` | retrieve the log's path of a container |
+| `get_name` | retrieve the name of a container |
+| `get_id` | retrieve the ID of a container |
+| `base_image` | retrieve the SHA256 of the base image |
+| `base_image_short` | retrieve the short SHA256 of the base image |
+| `image_tag` | retrieve the full tag of an image |
+| `image_name` | retrieve the name of an image |
+| `image_version` | retrieve the version of an image |
+| `image_size` | return the size of the image in bytes |
+
