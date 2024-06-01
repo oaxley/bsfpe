@@ -7,7 +7,7 @@
 
 #----- guards
 GIT_BIN=$(which git)
-[[ -z ${GIT_BIN} || ! -x ${GIT_BIN}]] && return
+[[ -z ${GIT_BIN} || ! -x ${GIT_BIN} ]] && return
 
 
 #----- public
