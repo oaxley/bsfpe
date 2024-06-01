@@ -29,13 +29,17 @@ help() {
   echo "    get   : retrieve a value associated with the key"
   echo "    del   : remove a key from the store"
   echo "    clean : remove expired keys from the store"
-  exit
+  exit 0
 }
 
 
 #----- begin
 # create the cache directory
 mkdir -p ${CACHE_DIR}
+
+if (( $# == 0 )); then
+  help
+fi
 
 # parse the command line
 case "$1" in
