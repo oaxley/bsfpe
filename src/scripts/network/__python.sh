@@ -3,7 +3,7 @@
 # @author   Sebastien LEGRAND
 # @license  MIT License
 #
-# @brief    Bash Wrapper around Multicast Publisher/Receiver
+# @brief    Network functions with python as a backend
 
 #----- guards
 # ensure python is available
@@ -20,3 +20,11 @@ network::mcast_pub() {
 network::mcast_recv() {
   python3 ${BSFPE_LIBRARY_DIR}/scripts/mcast/mcastrcv.py $*
 }
+
+# create a TCP Listener to check FW ports
+# arguments:
+#   $1 : the TCP port
+network::fake_server() {
+  python3 -m http.server $1
+}
+
