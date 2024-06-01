@@ -11,10 +11,12 @@ PYTHON_BIN=$(which python3)
 [[ -z ${PYTHON_BIN} || ! -x ${PYTHON_BIN} ]] && return 0
 
 #----- functions
-mcast::pub() {
+# multicast publisher
+network::mcast_pub() {
   python3 ${BSFPE_LIBRARY_DIR}/scripts/mcast/mcastpub.py $*
 }
 
-mcast::recv() {
+# multicast receiver
+network::mcast_recv() {
   python3 ${BSFPE_LIBRARY_DIR}/scripts/mcast/mcastrcv.py $*
 }
