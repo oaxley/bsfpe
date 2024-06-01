@@ -5,6 +5,11 @@
 #
 # @brief    Generate UUID numbers
 
+#----- guards
+__bin=$(which python3)
+[[ -z ${__bin} || ! -x ${__bin} ]] && return
+
+
 #----- public functions
 
 # generate a UUID v4 number
