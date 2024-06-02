@@ -7,9 +7,10 @@
 
 #----- begin
 
+# shellcheck disable=SC2167
 for DIR in */; do
   if [[ -e ${DIR}/__init.sh ]]; then
-    _pushd ${DIR}
+    _pushd "${DIR}"
     source __init.sh
     _popd
   fi

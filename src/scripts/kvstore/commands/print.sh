@@ -17,23 +17,23 @@ commands::print::help() {
 # main function
 commands::print::main() {
   # print help
-  if [[ "$1" == "--help" ]]; then
+  if [[ $# -gt 0 && "$1" == "--help" ]]; then
     commands::print::help
     return
   fi
 
   # go through all the key in the store
   declare -A elements
-  while read STRING; do
+  while read -r STRING; do
     # retrieve the Key from the string
     # and add it to the associative array
     KEY=$(echo "${STRING}" | cut -d: -f1)
     elements[${KEY}]="${STRING}"
-  done < ${CACHE_DIR}/${CACHE_FILE}
+  done < "${CACHE_DIR}"/"${CACHE_FILE}"
 
   # go through the array
   TIMESTAMP=$(date "+%s")
-  for key in ${!elements[@]}; do
+  for key in "${!elements[@]}"; do
     STRING=${elements[$key]}
     TTL=$(echo "${STRING}" | cut -d: -f2)
 

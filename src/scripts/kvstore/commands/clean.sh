@@ -24,28 +24,28 @@ commands::clean::main() {
 
   # go through all the key in the store
   declare -A elements
-  while read STRING; do
+  while read -r STRING; do
     # retrieve the Key from the string
     # and add it to the associative array
     KEY=$(echo "${STRING}" | cut -d: -f1)
     elements[${KEY}]="${STRING}"
-  done < ${CACHE_DIR}/${CACHE_FILE}
+  done < "${CACHE_DIR}"/"${CACHE_FILE}"
 
   # go through the array and create temporary cache file
   TMP_FILE=${CACHE_DIR}/${CACHE_FILE}.$$
   TIMESTAMP=$(date "+%s")
-  for key in ${!elements[@]}; do
+  for key in "${!elements[@]}"; do
     STRING=${elements[$key]}
     TTL=$(echo "${STRING}" | cut -d: -f2)
     if (( TTL == 0 )); then
-      echo "${STRING}" >> ${TMP_FILE}
+      echo "${STRING}" >> "${TMP_FILE}"
     else
       if (( TIMESTAMP < TTL )); then
-        echo "${STRING}" >> ${TMP_FILE}
+        echo "${STRING}" >> "${TMP_FILE}"
       fi
     fi
   done
 
   # remove old cache
-  mv -f ${TMP_FILE} ${CACHE_DIR}/${CACHE_FILE}
+  mv -f "${TMP_FILE}" "${CACHE_DIR}"/"${CACHE_FILE}"
 }

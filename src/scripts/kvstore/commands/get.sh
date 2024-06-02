@@ -26,8 +26,8 @@ commands::get::main() {
 
   # retrieve values from the command line and
   # look for the latest occurence of this key
-  KEY=$1
-  STRING=$(cat ${CACHE_DIR}/${CACHE_FILE} | grep "^${KEY}:" | tail -1)
+  KEY="$1"
+  STRING=$(grep "^${KEY}:" "${CACHE_DIR}"/"${CACHE_FILE}" | tail -1)
 
   # nothing found
   if [[ -z "${STRING}" ]]; then
@@ -36,8 +36,8 @@ commands::get::main() {
   fi
 
   # split the data in parts
-  TTL=$(echo $STRING | cut -d: -f2)
-  VALUE=$(echo $STRING | cut -d: -f3)
+  TTL=$(echo "$STRING" | cut -d: -f2)
+  VALUE=$(echo "$STRING" | cut -d: -f3)
 
   # nothing to do with TTL == 0
   if (( TTL > 0 )); then

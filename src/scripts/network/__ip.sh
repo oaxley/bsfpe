@@ -18,7 +18,7 @@ __bin=$(which ip)
 # return:
 #   the mac address of this interface
 network::mac_address() {
-  ip link show $1 | grep ether | awk '{print $2}'
+  ip link show "$1" | grep ether | awk '{print $2}'
 }
 
 # retrieve the IP address of an interface
@@ -27,6 +27,6 @@ network::mac_address() {
 # return:
 #   the IP address of this interface
 network::ip_address() {
-  ip address show dev $1 | grep inet | awk '{print $2}'
+  ip address show dev "$1" | grep inet | awk '{print $2}'
 }
 

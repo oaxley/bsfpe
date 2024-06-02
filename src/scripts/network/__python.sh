@@ -13,18 +13,18 @@ PYTHON_BIN=$(which python3)
 #----- functions
 # multicast publisher
 network::mcast_pub() {
-  python3 ${BSFPE_LIBRARY_DIR}/scripts/mcast/mcastpub.py $*
+  python3 "${BSFPE_LIBRARY_DIR}/scripts/mcast/mcastpub.py" "$@"
 }
 
 # multicast receiver
 network::mcast_recv() {
-  python3 ${BSFPE_LIBRARY_DIR}/scripts/mcast/mcastrcv.py $*
+  python3 "${BSFPE_LIBRARY_DIR}/scripts/mcast/mcastrcv.py" "$@"
 }
 
 # create a TCP Listener to check FW ports
 # arguments:
 #   $1 : the TCP port
 network::fake_server() {
-  python3 -m http.server $1
+  python3 -m http.server "$1"
 }
 

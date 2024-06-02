@@ -28,7 +28,7 @@ commands::set::main() {
   fi
 
   # retrieve values from the command line
-  KEY=$1
+  KEY="$1"
   shift
 
   # retrieve the value
@@ -38,7 +38,7 @@ commands::set::main() {
   MARKER=$(echo "${VALUE}" | cut -c1)
   if [[ "${MARKER}" == "@" ]]; then
     # retrieve the last occurence of the key
-    VALUE_B64=$(grep "^${KEY}:" ${CACHE_DIR}/${CACHE_FILE} | tail -1 | cut -d: -f3)
+    VALUE_B64=$(grep "^${KEY}:" "${CACHE_DIR}"/"${CACHE_FILE}" | tail -1 | cut -d: -f3)
 
     # compute the new TTL
     TIMESTAMP=$(date "+%s")
@@ -51,7 +51,7 @@ commands::set::main() {
   fi
 
   # add a new entry to the store
-  echo "${KEY}:${TTL}:${VALUE_B64}" >> ${CACHE_DIR}/${CACHE_FILE}
+  echo "${KEY}:${TTL}:${VALUE_B64}" >> "${CACHE_DIR}"/"${CACHE_FILE}"
 
   logger::info "Key '${KEY}' has been added to the store with a TTL of '${TTL}'"
 }

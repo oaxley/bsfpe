@@ -25,10 +25,10 @@ commands::del::main() {
   fi
 
   # retrieve values from the command line
-  KEY=$1
+  KEY="$1"
 
   # key lookup
-  STRING=$(cat ${CACHE_DIR}/${CACHE_FILE} | grep "^${KEY}:" | tail -1)
+  STRING=$(grep "^${KEY}:" "${CACHE_DIR}"/"${CACHE_FILE}" | tail -1)
   if [[ -z "${STRING}" ]]; then
     logger::error "Cannot find the key '${KEY}' in the store"
     return 1
@@ -41,7 +41,7 @@ commands::del::main() {
   TTL=$(( TIMESTAMP - 300 ))
 
   # add the key/value pair to the store
-  echo "${KEY}:${TTL}:${VALUE}" >> ${CACHE_DIR}/${CACHE_FILE}
+  echo "${KEY}:${TTL}:${VALUE}" >> "${CACHE_DIR}"/"${CACHE_FILE}"
 
   logger::info "Key '${KEY}' has been removed from the store"
 }

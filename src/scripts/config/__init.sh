@@ -13,13 +13,13 @@ PYTHON_BIN=$(which python3)
 
 #----- functions
 config::ini() {
-  python3 ${BSFPE_LIBRARY_DIR}/scripts/config/iniparser.py $*
+  python3 "${BSFPE_LIBRARY_DIR}/scripts/config/iniparser.py" "$@"
 }
 
 config::yaml() {
-  python3 ${BSFPE_LIBRARY_DIR}/scripts/config/yamlparser.py $*
+  python3 "${BSFPE_LIBRARY_DIR}/scripts/config/yamlparser.py" "$@"
 }
 
 config::toml() {
-  python3 ${BSFPE_LIBRARY_DIR}/scripts/config/tomlparser.py $*
+  python3 "${BSFPE_LIBRARY_DIR}/scripts/config/tomlparser.py" "$@"
 }

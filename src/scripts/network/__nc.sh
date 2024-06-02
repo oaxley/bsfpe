@@ -18,8 +18,12 @@ __bin=$(which nc)
 # return:
 #   0 if the connection is successful, >0 otherwise
 network::zero_connect() {
-  local _hostname=$(echo $1 | cut -d: -f1)
-  local _port=$(echo $1 | cut -d: -f2)
-  nc -zv ${_hostname} ${_port}
+  # shellcheck disable=SC2155
+  local _hostname=$(echo "$1" | cut -d: -f1)
+
+  # shellcheck disable=SC2155
+  local _port=$(echo "$1" | cut -d: -f2)
+
+  nc -zv "${_hostname}" "${_port}"
 }
 

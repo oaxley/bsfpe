@@ -6,17 +6,21 @@
 # @brief    Key/Value Store for shell scripts
 
 #----- globals
-SCRIPT_NAME=$(basename ${BASH_SOURCE})
-SCRIPT_DIR=$(dirname ${BASH_SOURCE})
+# shellcheck disable=SC2128
+SCRIPT_NAME=$(basename "${BASH_SOURCE}")
+SCRIPT_DIR=$(dirname "${BASH_SOURCE}")
 if [[ "${SCRIPT_DIR}" == "." ]]; then
   SCRIPT_DIR=$(pwd)
 fi
 
 CACHE_DIR=${SCRIPT_DIR}/.cache
+
+# shellcheck disable=SC2034
 CACHE_FILE=${SCRIPT_NAME%.sh}
 
 #----- imports
-source ${SCRIPT_DIR}/../../funcs/logger.sh
+# shellcheck disable=SC1091
+source "${SCRIPT_DIR}/../../funcs/logger.sh"
 
 #----- functions
 help() {
@@ -35,7 +39,7 @@ help() {
 
 #----- begin
 # create the cache directory
-mkdir -p ${CACHE_DIR}
+mkdir -p "${CACHE_DIR}"
 
 if (( $# == 0 )); then
   help
@@ -48,27 +52,32 @@ case "$1" in
     ;;
   "set")
     shift
-    source ${SCRIPT_DIR}/commands/set.sh
-    commands::set::main $*
+    # shellcheck disable=SC1091
+    source "${SCRIPT_DIR}/commands/set.sh"
+    commands::set::main "$@"
     ;;
   "get")
     shift
-    source ${SCRIPT_DIR}/commands/get.sh
-    commands::get::main $*
+    # shellcheck disable=SC1091
+    source "${SCRIPT_DIR}/commands/get.sh"
+    commands::get::main "$@"
     ;;
   "del")
     shift
-    source ${SCRIPT_DIR}/commands/del.sh
-    commands::del::main $*
+    # shellcheck disable=SC1091
+    source "${SCRIPT_DIR}/commands/del.sh"
+    commands::del::main "$@"
     ;;
   "clean")
     shift
-    source ${SCRIPT_DIR}/commands/clean.sh
-    commands::clean::main $*
+    # shellcheck disable=SC1091
+    source "${SCRIPT_DIR}/commands/clean.sh"
+    commands::clean::main "$@"
     ;;
   "print")
     shift
-    source ${SCRIPT_DIR}/commands/print.sh
-    commands::print::main $*
+    # shellcheck disable=SC1091
+    source "${SCRIPT_DIR}/commands/print.sh"
+    commands::print::main "$@"
     ;;
 esac
