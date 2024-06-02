@@ -18,7 +18,7 @@ if [[ $- == *i* ]]; then
       continue
     fi
 
-    source ${script}
+    source "${script}"
   done
 
 fi

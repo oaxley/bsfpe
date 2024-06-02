@@ -17,7 +17,7 @@ crontab() {
       echo "Error: deletion of crontab is not authorized"
       ;;
     *)
-      command ${CRONTAB_BIN} $*
+      command ${CRONTAB_BIN} "$@"
       ;;
   esac
 }
