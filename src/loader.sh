@@ -35,7 +35,10 @@ for DIR in */; do
   if [[ -e ${DIR}/__init.sh ]]; then
     # shellcheck disable=SC2164
     _pushd "${DIR}"
+
+    # shellcheck disable=SC1091
     source __init.sh
+
     _popd
   fi
 done

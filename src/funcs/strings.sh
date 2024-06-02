@@ -35,8 +35,9 @@ strings::rtrim() {
 # return:
 #   The same string, without the spaces at the beginning and the end
 strings::trim() {
-  local __string=$(strings::ltrim $1)
-  echo "$(strings::rtrim ${__string})"
+  # shellcheck disable=SC2155
+  local __string=$(strings::ltrim "$1")
+  strings::rtrim "${__string}"
 }
 
 # convert a string to uppercase
@@ -66,7 +67,7 @@ strings::to_lower() {
 # the length of the string
 strings::length() {
   local __string="$*"
-  echo ${#__string}
+  echo "${#__string}"
 }
 
 # extract N characters from the left of a string
@@ -79,7 +80,7 @@ strings::left() {
   local __count=$1
   shift
   local __string="$*"
-  echo ${__string:0:__count}
+  echo "${__string:0:__count}"
 }
 
 # extract N characters from the right of a string
@@ -94,7 +95,7 @@ strings::right() {
   local __string="$*"
   local __length=${#__string}
   local __pos=$(( __length - __count ))
-  echo ${__string:__pos:__length}
+  echo "${__string:__pos:__length}"
 }
 
 # extract N characters from the string at the specified position
@@ -110,5 +111,5 @@ strings::mid() {
   shift 2
   local __string="$*"
 
-  echo ${__string:__start:__length}
+  echo "${__string:__start:__length}"
 }

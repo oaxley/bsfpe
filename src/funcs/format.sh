@@ -30,5 +30,5 @@ format::size() {
     __int_value=${__value/.*/}
   done
 
-  printf "%.003f %s\n" ${__value} ${__units[${__unit}]}
+  printf "%.003f %s\n" "${__value}" "${__units[${__unit}]}"
 }

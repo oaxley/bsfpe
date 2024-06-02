@@ -14,6 +14,6 @@ for script in *.sh; do
   if [[ "${script}" == "__init.sh" ]]; then
     continue
   fi
-
-  source ${script}
+  # shellcheck disable=SC1090
+  source "${script}"
 done

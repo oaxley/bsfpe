@@ -14,8 +14,9 @@ GIT_BIN=$(which git)
 
 # retrieve the GIT repository name
 git::repo_name() {
-  local __temp=$(basename $(git::repo_url))
-  echo ${__temp%.git}
+  # shellcheck disable=SC2155
+  local __temp=$(basename "$(git::repo_url)")
+  echo "${__temp%.git}"
 }
 
 # retrieve the GIT repository URL

@@ -15,8 +15,11 @@
 #   0 if both files are identical, 1 otherwise
 system::file_compare() {
   # build the sha1 from the files
-  local __sha1_right=$(sha1sum $1 | awk '{print $1}')
-  local __sha1_left=$(sha1sum $2 | awk '{print $1}')
+  # shellcheck disable=SC2155
+  local __sha1_right=$(sha1sum "$1" | awk '{print $1}')
+
+  # shellcheck disable=SC2155
+  local __sha1_left=$(sha1sum "$2" | awk '{print $1}')
 
   [[ "${__sha1_right}" == "${__sha1_left}" ]] && return 0
   return 1
@@ -28,7 +31,7 @@ system::file_compare() {
 #   $2 : new file
 #   $3 : patch name
 system::patch_create() {
-  diff -u $1 $2 > $3
+  diff -u "$1" "$2" > "$3"
 }
 
 # apply a patch to a file
@@ -36,7 +39,7 @@ system::patch_create() {
 #   $1 : initial file
 #   $2 : patch file
 system::patch_apply() {
-  patch -p1 $1 < $2
+  patch -p1 "$1" < "$2"
 }
 
 # revert a patch applied to a file
@@ -44,7 +47,7 @@ system::patch_apply() {
 #   $1 : initial file
 #   $2 : patch file
 system::patch_revert() {
-  patch -R -p1 $1 < $2
+  patch -R -p1 "$1" < "$2"
 }
 
 # return the CPU type
@@ -54,7 +57,7 @@ system::cpu_type() {
 
 # return the CPU count
 system::cpu_count() {
-  grep 'processor' /proc/cpuinfo | wc -l
+  grep -c'processor' /proc/cpuinfo
 }
 
 # check is a CPU flag is present

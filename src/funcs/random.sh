@@ -13,7 +13,7 @@
 # return:
 #   the hexadecimal value from /dev/urandom
 random::_rand() {
-  echo $(dd if=/dev/urandom count=$1 bs=1 2>/dev/null | xxd -p)
+  dd if=/dev/urandom count="$1" bs=1 2>/dev/null | xxd -p
 }
 
 

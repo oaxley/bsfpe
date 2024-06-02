@@ -19,7 +19,8 @@ execute::wait_until() {
   local __command=$2
   shift 2
 
-  sleep ${__sleeptime} && ${__command} $@
+  # shellcheck disable=SC2086
+  sleep ${__sleeptime} && ${__command} "$@"
 }
 
 # execute a command in the specified directory
@@ -37,10 +38,15 @@ execute::run_in() {
   [[ ! -d ${__dir} ]] && logger::error "Directory [${__dir}] does not exist!" && return 1
 
   # silently move to target
-  pushd ${__dir} 2>&1 >/dev/null
-  ${__command} $@
+  # shellcheck disable=SC2164
+  pushd "${__dir}" >/dev/null 2>&1
+
+  ${__command} "$@"
   local __result=$?
-  popd 2>&1 >/dev/null
+
+  # shellcheck disable=SC2164
+  popd >/dev/null 2>&1
+
   return ${__result}
 }
 
