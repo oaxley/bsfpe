@@ -17,7 +17,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN : \
     && apt update \
     && apt install --quiet -y --no-install-recommends \
-        python3 python3-pip xxd \
+        python3 python3-pip xxd bc \
         netcat iproute2 \
         vim cron sudo
 
