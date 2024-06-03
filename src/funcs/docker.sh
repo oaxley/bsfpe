@@ -36,12 +36,12 @@ docker::get_id() {
 }
 
 # retrieve the SHA256 base Image of a container
-docker::base_image() {
+docker::image_id() {
   docker::_inspect "$1" | jq -r '.[].Image' | cut -d: -f2
 }
 
 # retrieve the short version of the SHA256
-docker::base_image_short() {
+docker::image_id_short() {
   # shellcheck disable=SC2155
   local __image=$(docker::base_image "$1")
   echo "${__image}" | cut -c-12
