@@ -1,0 +1,13 @@
+.TH execute::run_in 1 "June 2024" "1.0.0" "BSFPE"
+.SH NAME
+execute::run_in \- execute a command in a particular directory
+.SH SYNOPSIS
+.B execute::run_in
+<directory> <command>
+.IR [arguments]
+.SH DESCRIPTION
+Execute a command in the specified directory
+.SH EXAMPLES
+execute::run_in $HOME/data tar zxvf archive.tar.gz
+.SH "SEE ALSO"
+execute::wait_until(1), execute::true(1), execute::false(1)

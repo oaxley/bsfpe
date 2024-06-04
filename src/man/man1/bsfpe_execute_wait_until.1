@@ -1,0 +1,13 @@
+.TH execute::wait_until 1 "June 2024" "1.0.0" "BSFPE"
+.SH NAME
+execute::wait_until \- execute a command once the timer has elapsed
+.SH SYNOPSIS
+.B execute::wait_until
+<sleep (s)> <command>
+.IR [arguments]
+.SH DESCRIPTION
+Execute a command once the timer has elapsed.
+.SH EXAMPLES
+execute::wait_until 15 tar zxvf archive.tar.gz
+.SH "SEE ALSO"
+execute::run_in(1), execute::true(1), execute::false(1)
