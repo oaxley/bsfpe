@@ -1,0 +1,21 @@
+.TH system::cpu_flag 1 "June 2024" "1.0.0" "BSFPE"
+
+.SH NAME
+system::cpu_flag \- Check if a specific flag is present on the CPU
+
+.SH SYNOPSIS
+.B system::cpu_flag
+.IR <flag>
+
+.SH DESCRIPTION
+Check if the \fBflag\fR specified is in the list of supported extension by the CPU.
+.br
+Return \fBTrue (0)\fR if the extension is present, \fBFalse (1)\fR otherwise.
+.br
+\fBWarning:\fR This command works only for system that supports /proc/cpuinfo file.
+
+.SH EXAMPLES
+system::cpu_flag avx
+
+.SH "SEE ALSO"
+system::cpu_type(1), system::cpu_count(1)
