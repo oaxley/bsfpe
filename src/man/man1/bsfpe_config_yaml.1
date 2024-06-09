@@ -1,0 +1,36 @@
+.TH config::yaml 1 "June 2024" "1.0.0" "BSFPE"
+
+.SH NAME
+config::yaml \- Retrieve the value of a specific key in the YAML configuration file
+
+.SH SYNOPSIS
+.B config::yaml
+.IR [-s|--sections]
+.IR [-k|--keys]
+.IR <-f|--file
+.IR filename>
+.IR <key|section>
+
+.SH DESCRIPTION
+-s|--sections: print all available sections from the file.
+               \fBsection\fR must be set to 'all'
+
+.br
+-k|--keys    : print all the available keys in a section.
+               \fBsection\fR must be set to the corresponding section.
+
+.br
+-f|--file    : configuration file
+
+.br
+key          : path to retrieve the value from the file
+
+
+.SH EXAMPLES
+# retrieve the docker image name in the sample.yaml file
+.br
+$ config::yaml -f sample.yaml jobs.build.docker.0.image
+
+.SH "SEE ALSO"
+config::ini(1), config::toml(1)
+

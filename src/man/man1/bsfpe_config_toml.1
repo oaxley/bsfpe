@@ -1,0 +1,46 @@
+.TH config::toml 1 "June 2024" "1.0.0" "BSFPE"
+
+.SH NAME
+config::toml \- Retrieve the value of a specific key in the TOML configuration file
+
+.SH SYNOPSIS
+.B config::toml
+.IR [-s|--sections]
+.IR [-k|--keys]
+.IR <-f|--file
+.IR filename>
+.IR <key|section>
+
+.SH DESCRIPTION
+-s|--sections: print all available sections from the file.
+               \fBsection\fR must be set to 'all'
+
+.br
+-k|--keys    : print all the available keys in a section.
+               \fBsection\fR must be set to the corresponding section.
+
+.br
+-f|--file    : configuration file
+
+.br
+key          : path to retrieve the value from the file
+
+
+.SH EXAMPLES
+# retrieve the database ports (a list) in the sample.toml file
+.br
+$ config::toml -f sample.toml database.ports
+.br
+[8000, 8001, 8002]
+.br
+
+.br
+# retrieve the first port (index 0)
+.br
+$ config::toml -f sample.toml database.ports.0
+.br
+8000
+
+.SH "SEE ALSO"
+config::ini(1), config::yaml(1)
+
