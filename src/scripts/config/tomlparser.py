@@ -23,9 +23,9 @@ logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s", level=loggin
 
 # command line parser
 parser = argparse.ArgumentParser()
-parser.add_argument("-f", "--file", metavar="FILE", help="The YAML configuration file")
 parser.add_argument("-s", "--sections", action="store_true", default=False, help="List all the available sections")
 parser.add_argument("-k", "--keys", action="store_true", default=False, help="List all the available keys in the section")
+parser.add_argument("-f", "--file", required=True, metavar="FILE", help="The YAML configuration file")
 parser.add_argument("key", help="The key to look for in the file")
 args = parser.parse_args()
 
@@ -39,7 +39,8 @@ except FileNotFoundError:
 
 if args.sections:
     for k in config.keys():
-        print(k)
+        if (args.key.lower() == "all") or (k == args.key):
+            print(k)
     sys.exit(0)
 
 if args.keys:

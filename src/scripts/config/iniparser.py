@@ -20,10 +20,10 @@ logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s", level=loggin
 
 # command line parser
 parser = argparse.ArgumentParser()
-parser.add_argument("-f", "--file", metavar="FILE", help="The INI configuration file")
 parser.add_argument("-b", "--bool", action="store_true", default=False, help="Value is a boolean")
 parser.add_argument("-s", "--sections", action="store_true", default=False, help="List all the available sections")
 parser.add_argument("-k", "--keys", action="store_true", default=False, help="List all the available keys in the section")
+parser.add_argument("-f", "--file", required=True, metavar="FILE", help="The INI configuration file")
 parser.add_argument("key", help="The key to look for in the file")
 args = parser.parse_args()
 
@@ -40,7 +40,8 @@ except FileNotFoundError:
 if args.sections:
     # print section in a way to be compatible with shell scripts
     for section in config.sections():
-        print(section)
+        if (section == args.key) or (args.key.lower() == 'all'):
+            print(section)
     sys.exit(0)
 
 # print keys in the section
