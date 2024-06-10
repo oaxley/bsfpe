@@ -1,0 +1,21 @@
+.TH kvstore::del 1 "June 2024" "1.0.0" "BSFPE"
+
+.SH NAME
+kvstore::del \- Remove a key from the store
+
+.SH SYNOPSIS
+.B kvstore::del
+.IR key
+
+.SH DESCRIPTION
+Delete a key and its value.
+
+.SH EXAMPLES
+# delete a key/value pair
+.br
+kvstore::del cookie
+
+.SH "SEE ALSO"
+kvstore::set(1), kvstore::get(1),
+kvstore::clean(1), kvstore::print(1)
+

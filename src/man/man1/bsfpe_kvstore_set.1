@@ -1,0 +1,37 @@
+.TH kvstore::set 1 "June 2024" "1.0.0" "BSFPE"
+
+.SH NAME
+kvstore::set \- Set a new key/value pair or TTL in the store
+
+.SH SYNOPSIS
+.B kvstore::set
+.IR key
+.IR value
+.br
+.B kvstore::set
+.IR key
+.IR @seconds
+
+.SH DESCRIPTION
+The first form sets a new key/value pair in the store.
+By default, no TTL value is associated with the \fBkey\fR.
+.br
+The second form sets a TTL value of \fBseconds\fR to the key.
+.br
+Once the seconds have elapsed, the key is non-longer available.
+
+.SH EXAMPLES
+# set a new key/value
+.br
+kvstore::set cookie "LlRIIGt2c3RvcmU6OnNldCAxICJKdW5lIDIwMj"
+.br
+
+.br
+# set a TTL value of 5min (300s)
+.br
+kvstore::set cookie @300
+
+.SH "SEE ALSO"
+kvstore::get(1), kvstore::del(1),
+kvstore::clean(1), kvstore::print(1)
+

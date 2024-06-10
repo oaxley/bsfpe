@@ -1,0 +1,21 @@
+.TH kvstore::get 1 "June 2024" "1.0.0" "BSFPE"
+
+.SH NAME
+kvstore::get \- Get the value associated with a key
+
+.SH SYNOPSIS
+.B kvstore::get
+.IR key
+
+.SH DESCRIPTION
+Retrieve a value associated with a key, if the key has not expired.
+
+.SH EXAMPLES
+# get a value
+.br
+kvstore::get cookie
+
+.SH "SEE ALSO"
+kvstore::set(1), kvstore::del(1),
+kvstore::clean(1), kvstore::print(1)
+
