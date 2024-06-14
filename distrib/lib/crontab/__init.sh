@@ -7,8 +7,12 @@
 
 #----- begin
 
-# load aliases only if we are in interactive mode
+# load only if we are in interactive mode
 if [[ $- == *i* ]]; then
+
+  # ensure crontab is defined before loading
+  __bin=$(which crontab)
+  [[ -z "${__bin}" ]] && return
 
   # loop over all the BASH scripts defined in the directory
   for script in *.sh; do
@@ -18,6 +22,7 @@ if [[ $- == *i* ]]; then
       continue
     fi
 
+    # shellcheck disable=SC1090
     source "${script}"
   done
 
