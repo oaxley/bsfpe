@@ -7,19 +7,19 @@
 
 #----- guards
 # ensure python is available
-PYTHON_BIN=$(which python3)
-[[ -z ${PYTHON_BIN} || ! -x ${PYTHON_BIN} ]] && return 0
+__bin=$(which python3)
+[[ -z "${__bin}" ]] && return
 
 
 #----- functions
 config::ini() {
-  python3 "${BSFPE_LIBRARY_DIR}/scripts/config/iniparser.py" "$@"
+  python3 "${BSFPE_LIBRARY_DIR}/lib/config/iniparser.py" "$@"
 }
 
 config::yaml() {
-  python3 "${BSFPE_LIBRARY_DIR}/scripts/config/yamlparser.py" "$@"
+  python3 "${BSFPE_LIBRARY_DIR}/lib/config/yamlparser.py" "$@"
 }
 
 config::toml() {
-  python3 "${BSFPE_LIBRARY_DIR}/scripts/config/tomlparser.py" "$@"
+  python3 "${BSFPE_LIBRARY_DIR}/lib/config/tomlparser.py" "$@"
 }
