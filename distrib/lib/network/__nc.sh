@@ -7,7 +7,7 @@
 
 #----- guards
 __bin=$(which nc)
-[[ -z ${__bin} || ! -x ${__bin} ]] && return
+[[ -z ${__bin} ]] && return
 
 
 #----- public functions

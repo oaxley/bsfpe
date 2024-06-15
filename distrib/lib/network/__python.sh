@@ -7,8 +7,8 @@
 
 #----- guards
 # ensure python is available
-PYTHON_BIN=$(which python3)
-[[ -z ${PYTHON_BIN} || ! -x ${PYTHON_BIN} ]] && return 0
+__bin=$(which python3)
+[[ -z ${__bin} ]] && return 0
 
 #----- functions
 # multicast publisher
