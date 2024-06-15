@@ -7,7 +7,7 @@
 
 #----- guards
 __bin=$(which python3)
-[[ -z ${__bin} || ! -x ${__bin} ]] && return
+[[ -z ${__bin} ]] && return
 
 
 #----- public functions
