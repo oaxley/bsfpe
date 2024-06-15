@@ -40,7 +40,7 @@ RUN : \
     && echo "%${GROUP} ALL = (ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # copy the source files in the generic user home
-COPY --chown=${USER}:${GROUP} src/ /home/${USER}/.bsfpe
+COPY --chown=${USER}:${GROUP} distrib/ /home/${USER}/.bsfpe
 
 # last steps
 WORKDIR /home/${USER}
