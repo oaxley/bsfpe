@@ -7,25 +7,31 @@
 
 #----- functions
 kvstore::main() {
-  . "${BSFPE_LIBRARY_DIR}/scripts/kvstore/kvstore.sh" "$@"
+  # shellcheck disable=SC1091
+  . "${BSFPE_LIBRARY_DIR}/lib/kvstore/kvstore.sh" "$@"
 }
 
 kvstore::set() {
-  . "${BSFPE_LIBRARY_DIR}/scripts/kvstore/kvstore.sh" set "$@"
+  # shellcheck disable=SC1091
+  . "${BSFPE_LIBRARY_DIR}/lib/kvstore/kvstore.sh" set "$@"
 }
 
 kvstore::get() {
-  . "${BSFPE_LIBRARY_DIR}/scripts/kvstore/kvstore.sh" get "$@"
+  # shellcheck disable=SC1091
+  . "${BSFPE_LIBRARY_DIR}/lib/kvstore/kvstore.sh" get "$@"
 }
 
 kvstore::del() {
-  . "${BSFPE_LIBRARY_DIR}/scripts/kvstore/kvstore.sh" del "$@"
+  # shellcheck disable=SC1091
+  . "${BSFPE_LIBRARY_DIR}/lib/kvstore/kvstore.sh" del "$@"
 }
 
 kvstore::clean() {
-  . "${BSFPE_LIBRARY_DIR}/scripts/kvstore/kvstore.sh" clean "$@"
+  # shellcheck disable=SC1091
+  . "${BSFPE_LIBRARY_DIR}/lib/kvstore/kvstore.sh" clean "$@"
 }
 
 kvstore::print() {
-  . "${BSFPE_LIBRARY_DIR}/scripts/kvstore/kvstore.sh" print "$@"
+  # shellcheck disable=SC1091
+  . "${BSFPE_LIBRARY_DIR}/lib/kvstore/kvstore.sh" print "$@"
 }

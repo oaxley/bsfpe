@@ -13,14 +13,18 @@ if [[ "${SCRIPT_DIR}" == "." ]]; then
   SCRIPT_DIR=$(pwd)
 fi
 
-CACHE_DIR=${SCRIPT_DIR}/.cache
+if [[ -z ${XDG_CACHE_DIR} ]]; then
+  CACHE_DIR=${SCRIPT_DIR}/.cache
+else
+  CACHE_DIR=${XDG_CACHE_DIR}
+fi
 
 # shellcheck disable=SC2034
 CACHE_FILE=${SCRIPT_NAME%.sh}
 
 #----- imports
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/../../funcs/logger.sh"
+source "${SCRIPT_DIR}/../core/logger.sh"
 
 #----- functions
 help() {
