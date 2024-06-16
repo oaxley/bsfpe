@@ -24,3 +24,15 @@ system::file_compare() {
   [[ "${__sha1_right}" == "${__sha1_left}" ]] && return 0
   return 1
 }
+
+# wrapper around pushd without output
+# arguments:
+#   $1 : the path to the directory to jump in
+system::pushd() {
+  pushd "$1" >/dev/null 2>&1 || return
+}
+
+# wrapper around popd without output
+system::popd() {
+  popd >dev/null 2>&1 || return
+}
