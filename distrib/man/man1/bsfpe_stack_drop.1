@@ -1,0 +1,26 @@
+.TH stack::drop 1 "June 2024" "1.0.0" "BSFPE"
+
+.SH NAME
+stack::drop \- Drop the value from the top
+
+.SH SYNOPSIS
+.B stack::drop
+
+.SH DESCRIPTION
+This function drop the top value, but does not return it to the caller.
+
+.SH EXAMPLES
+Drop the top value
+.br
+
+.RS
+# the stack before : [10 20 30]
+.br
+$ stack::drop
+.br
+# the stack after  : [10 20]
+
+.SH "SEE ALSO"
+stack::push(1), stack::pop(1), stack::dup(1), stack::top(1), stack::swap(1),
+.br
+stack::count(1), stack::print(1), stack::rotate(1), stack::clear(1)

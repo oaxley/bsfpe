@@ -1,0 +1,27 @@
+.TH stack::rotate 1 "June 2024" "1.0.0" "BSFPE"
+
+.SH NAME
+stack::rotate \- Rotate elements in the stack
+
+.SH SYNOPSIS
+.B stack::rotate
+
+.SH DESCRIPTION
+This function rotates the actual content of the stack.
+The last element of the stack will be on the top of the stack after this function executes.
+
+.SH EXAMPLES
+Rotate the stack
+.br
+
+.RS
+# the stack before : [10 20 30]
+.br
+$ stack::rotate
+.br
+# the stack after  : [20 30 10]
+
+.SH "SEE ALSO"
+stack::push(1), stack::pop(1), stack::dup(1), stack::top(1), stack::drop(1),
+.br
+stack::swap(1), stack::count(1), stack::print(1), stack::clear(1)
