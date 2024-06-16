@@ -38,3 +38,4 @@ export MANPATH="${BSFPE_LIBRARY_DIR}/man:${MANPATH}"
 
 # clean the environment
 unset _pushd _popd
+
