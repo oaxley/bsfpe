@@ -85,8 +85,8 @@ writeSeeAlso() {
   while read -r LINE; do
     [[ "${LINE}" == "${__name}" ]] && continue
 
-    (( __flag > 0 )) && echo "," >> ${TMP_DIR}/output
-    echo "${LINE}(1)" >> "${TMP_DIR}/output"
+    (( __flag > 0 )) && echo -n ", " >> "${TMP_DIR}/output"
+    echo -n "${LINE}(1)" >> "${TMP_DIR}/output"
     __flag=1
   done < "${TMP_DIR}/see_also"
 }
