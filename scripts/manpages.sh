@@ -129,6 +129,7 @@ processFile() {
 
       # move the file to its destination
       __filename="bsfpe_${__name/::/_}.1"
+      echo "* Writing [${TARGET_DIR}/${__filename}]"
       mv "${TMP_DIR}/output" "${TARGET_DIR}/${__filename}"
 
       # purge data
@@ -176,14 +177,16 @@ processFile() {
 [[ -z "${SOURCE_DIR}" ]] && exit 1
 
 # create the target dir
+echo "Writing manpages to [${TARGET_DIR}]..."
 mkdir -p "${TARGET_DIR}"
 mkdir -p "${TMP_DIR}"
 
 _pushd "${SOURCE_DIR}"
 
-for FILE in *.sh; do
+for FILE in */*.sh; do
   # init should not be considered
-  [[ "${FILE}" == "__init.sh" ]] && continue
+  # [[ "${FILE}" == "__init.sh" ]] && continue
+  echo "* Processing [${FILE}]..."
 
   # remove the previous see_also
   rm -f "${TMP_DIR}/see_also"
