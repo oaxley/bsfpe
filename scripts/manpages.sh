@@ -64,7 +64,6 @@ writeSynopsis() {
 
 writeDesc() {
   local __values=("$@")
-  echo ".SH DESCRIPTION" >> "${TMP_DIR}/output"
   for I in "${__values[@]}"; do
     echo "${I}" >> "${TMP_DIR}/output"
   done
@@ -97,18 +96,38 @@ writeSeeAlso() {
   done < "${TMP_DIR}/see_also"
 }
 
-processFile() {
-  local __name
-  local __short_description
-  local __long_description
-  local __synopsis
-  local __examples
+writeOptions() {
+  local __options=("$@")
+  echo -e "\nOptions:\n" >> "${TMP_DIR}/output"
 
-  __name=""
-  __short_description=""
-  __long_description=()
-  __synopsis=()
-  __examples=()
+  for __line in "${__options[@]}"; do
+    __option=$(echo ${__line} | sed -e 's/(\([^)]*\)){.*/\1/')
+    __desc=$(echo ${__line} | sed -e 's/.*{\([^}]*\)}/\1/')
+
+    # option with a parameter
+    if [[ "${__option}" =~ = ]]; then
+      # extract the option and its parameter
+      [[ "${__option}" =~ ^([^=]*)=(.*) ]]
+      echo "\fB${BASH_REMATCH[1]}\fR \fI${BASH_REMATCH[2]}\fR" >> "${TMP_DIR}/output"
+    else
+      echo "\fB${__option}\fR" >> "${TMP_DIR}/output"
+    fi
+
+    {
+      echo ".RS" >> "${TMP_DIR}/output"
+      echo "${__desc}" | sed -e 's/|/\n.br\n/g'
+      echo -e ".RE\n.br\n"
+    } >> "${TMP_DIR}/output"
+  done
+}
+
+processFile() {
+  local __name=""
+  local __short_description=""
+  local __synopsis=()
+  local __examples=()
+  local __header=()
+  local __footer=()
 
   # nothing to be done
   [[ ! -e ${TMP_DIR}/functions ]] && return
@@ -120,16 +139,18 @@ processFile() {
       writeName "${__name}" "${__short_description}"
       writeSynopsis "${__name}" "${__synopsis[@]}"
 
-      if (( ${#__long_description} == 0 )); then
-        writeDesc "${__short_description}"
-      else
-        writeDesc "${__long_description[@]}"
-      fi
+      # write description
+      echo ".SH DESCRIPTION" >> "${TMP_DIR}/output"
+      writeDesc "${__header[@]}" ".br"
+      writeOptions "${__synopsis[@]}"
+      writeDesc ".br" "${__footer[@]}"
 
+      # write examples
       if (( ${#__examples[@]} > 0 )); then
         writeExample "${__examples[@]}"
       fi
 
+      # write See Also
       writeSeeAlso "${__name}"
 
 
@@ -157,6 +178,20 @@ processFile() {
     if [[ "${LINE}" =~ ^#.2 ]]; then
       __tmp=$(echo "${LINE}" | cut -d' ' -f2-)
       __synopsis+=("${__tmp}")
+      continue
+    fi
+
+    # description header
+    if [[ "${LINE}" =~ ^#.3H ]]; then
+      __tmp=$(echo "${LINE}" | cut -d' ' -f2-)
+      __header+=("${__tmp}")
+      continue
+    fi
+
+    # description footer
+    if [[ "${LINE}" =~ ^#.3F ]]; then
+      __tmp=$(echo "${LINE}" | cut -d' ' -f2-)
+      __footer+=("${__tmp}")
       continue
     fi
 
