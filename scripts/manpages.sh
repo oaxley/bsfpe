@@ -50,9 +50,15 @@ writeSynopsis() {
 
   { echo ".SH SYNOPSIS"; echo ".B ${__name}"; } >> "${TMP_DIR}/output"
 
-  for I in "${__values[@]}"; do
-    __value=$(echo "$I" | cut -d'|' -f1)
-    echo ".IR ${__value}" >> "${TMP_DIR}/output"
+  for __value in "${__values[@]}"; do
+    __option=$(echo "${__value}" | sed -e 's/(\([^)]*\)){.*/\1/')
+
+    if [[ "${__option}" =~ = ]]; then
+      echo ".IR [$(echo ${__option} | cut -d= -f1)" >> "${TMP_DIR}/output"
+      echo ".IR $(echo ${__option} | cut -d= -f2)]" >> "${TMP_DIR}/output"
+    else
+      echo ".IR [${__option}]" >> "${TMP_DIR}/output"
+    fi
   done
 }
 
