@@ -156,15 +156,16 @@ processFile() {
 
       # move the file to its destination
       __filename="bsfpe_${__name/::/_}.1"
-      echo "* Writing [${TARGET_DIR}/${__filename}]"
+      echo -e "\t- Writing [$(basename ${TARGET_DIR}/${__filename})]"
       mv "${TMP_DIR}/output" "${TARGET_DIR}/${__filename}"
 
       # purge data
       __name=""
       __short_description=""
-      __long_description=()
       __synopsis=()
       __examples=()
+      __header=()
+      __footer=()
 
       # next line
       continue
