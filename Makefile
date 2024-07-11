@@ -3,7 +3,7 @@
 #
 # @brief	Makefile to build and run the docker container
 
-.PHONY: build run clean
+.PHONY: build run clean manpages install
 
 # build a new image
 build:
@@ -16,3 +16,11 @@ run:
 # clean docker system (dangling images + cache)
 clean:
 	@docker system prune
+
+# create the manpages
+manpages:
+	@cd scripts && ./manpages.sh ../distrib/lib
+
+# install script
+install:
+	@cd scripts && ./install.sh
