@@ -142,7 +142,7 @@ processFile() {
       # write description
       echo ".SH DESCRIPTION" >> "${TMP_DIR}/output"
       writeDesc "${__header[@]}" ".br"
-      writeOptions "${__synopsis[@]}"
+      (( ${#__synopsis[@]} > 0 )) && writeOptions "${__synopsis[@]}"
       writeDesc ".br" "${__footer[@]}"
 
       # write examples
