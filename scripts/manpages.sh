@@ -65,7 +65,14 @@ writeSynopsis() {
 writeDesc() {
   local __values=("$@")
   for I in "${__values[@]}"; do
-    echo "${I}" >> "${TMP_DIR}/output"
+    if [[ "${I}" =~ !! ]]; then
+      [[ "${I}" =~ (^[^!]*)!!(.*) ]]
+      echo "${BASH_REMATCH[1]}" >> "${TMP_DIR}/output"
+      echo ".br" >> "${TMP_DIR}/output"
+    else
+      echo "${I}" >> "${TMP_DIR}/output"
+    fi
+
   done
 }
 
@@ -193,12 +200,6 @@ processFile() {
     if [[ "${LINE}" =~ ^#.3F ]]; then
       __tmp=$(echo "${LINE}" | cut -d' ' -f2-)
       __footer+=("${__tmp}")
-      continue
-    fi
-
-    if [[ "${LINE}" =~ ^#.3 ]]; then
-      __tmp=$(echo "${LINE}" | cut -d' ' -f2-)
-      __long_description+=("${__tmp}")
       continue
     fi
 
