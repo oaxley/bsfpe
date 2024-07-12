@@ -18,30 +18,38 @@ random::_rand() {
 
 
 #----- public functions
-# generate a 8-bits random value
-# return:
-#   a value between 0 and 255
+#.--
+#.1 Generate a 8-bits random value
+#.3H Generate a 8-bits value between 0 and 255. !!
+#.3F The value is generated with the /dev/urandom device.
+#.--
 random::rand8() {
   echo $((16#$(random::_rand 1)))
 }
 
-# generate a 16-bits random value
-# return:
-#   a value between 0 and 65,535
+#.--
+#.1 Generate a 16-bits random value
+#.3H Generate a 16-bits value between 0 and 65,525. !!
+#.3F The value is generated with the /dev/urandom device.
+#.--
 random::rand16() {
   echo $((16#$(random::_rand 2)))
 }
 
-# generate a 24-bits random value
-# return:
-#   a value between 0 and 16,777,215
+#.--
+#.1 Generate a 24-bits random value
+#.3H Generate a 24-bits value between 0 and 16,777,215. !!
+#.3F The value is generated with the /dev/urandom device.
+#.--
 random::rand24() {
   echo $((16#$(random::_rand 3)))
 }
 
-# generate a 32-bits random value
-# return:
-#   a value between 0 and 4,294,967,295
+#.--
+#.1 Generate a 24-bits random value
+#.3H Generate a 24-bits value between 0 and 4,294,967,295. !!
+#.3F The value is generated with the /dev/urandom device.
+#.--
 random::rand32() {
   echo $((16#$(random::_rand 4)))
 }
