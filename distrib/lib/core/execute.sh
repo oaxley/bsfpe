@@ -7,13 +7,16 @@
 
 #----- public functions
 
-# wait until time has elapsed before executing a command
-# arguments:
-#   $1 : the time to wait
-#   $2 : the command to execute
-#   $* : the arguments of the command
-# return:
-#   the error code from the command
+#.--
+#.1 Execute a command after time has elapsed
+#.2 (period){Time in seconds to wait before running the command}
+#.2 (command){The command to execute}
+#.2 ($*){The arguments for the command}
+#.3H Wait the for the \fBperiod\fR to elapsed before executing the command.
+#.3F Returns the status of the executed command in $?.
+#.4 Execute the removal of the file after 10s
+#.4 $ execute::wait_until 10 rm -f /tmp/lock_file
+#.--
 execute::wait_until() {
   local __sleeptime=$1
   local __command=$2
@@ -23,13 +26,17 @@ execute::wait_until() {
   sleep ${__sleeptime} && ${__command} "$@"
 }
 
-# execute a command in the specified directory
-# arguments:
-#   $1 : the directory where the execution should take place
-#   $2 : the command to execute
-#   $* : the arguments for the command
-# return:
-#   the error code from the command
+#.--
+#.1 Execute a command in the specified directory
+#.2 (path){The directory where to execute the command}
+#.2 (command){The command to execute}
+#.2 ($*){The arguments for the command}
+#.3H The command will be executed in the specified directory.
+#.3H After the command has been executed, the user will be back in the original directory.
+#.3F The status of the executed command is returned in $?
+#.4 Execute the tar command in /tmp
+#.4 $ execute::run_in /tmp tar xvf ${HOME}/archives/documents.tgz
+#.--
 execute::run_in() {
   local __dir=$1
   local __command=$2
@@ -50,12 +57,24 @@ execute::run_in() {
   return ${__result}
 }
 
-# function that always return True
+#.--
+#.1 Return True in all conditions
+#.3H The command will always returned True (0).
+#.3H It is most of the time useful as a return statement or in conditionals.
+#.4 Always execute the cat command
+#.4 $ execute::true && cat /proc/cpuinfo
+#.--
 execute::true() {
   return 0
 }
 
-# function that always return False
+#.--
+#.1 Return False in all conditions
+#.3H The command will always returned False (1).
+#.3H It is most of the time useful as a return statement or in conditionals.
+#.4 Never execute the cat command
+#.4 $ execute::false && cat /proc/cpuinfo
+#.--
 execute::false() {
   return 1
 }
