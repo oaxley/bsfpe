@@ -59,44 +59,65 @@ logger::_fromName() {
 }
 
 #----- public functions
-# set the log level
-# arguments:
-#   $1 : the level name
+#.--
+#.1 Set the current log level
+#.2 (log_level){the new log level}
+#.3H The available log level are:
+#.3H .br
+#.3H - \fBDEBUG\fR !!
+#.3H - \fBINFO\fR (default) !!
+#.3H - \fBWARNING\fR (default) !!
+#.3H - \fBERROR\fR (default) !!
+#.3H - \fBCRITICAL\fR (default) !!
+#.3F The level is set until another call to the function changes it.
+#.4 Set the LOG Level to CRITICAL
+#.4 $ logger::setLogLevel CRITICAL
+#.--
 logger::setLogLevel() {
   BSFPE_DEFAULT_LOGGER_LEVEL=$(logger::_fromName "$1")
 }
 
-# print a DEBUG message
-# arguments:
-#   $1 : the user message
+#.--
+#.1 Print a DEBUG message
+#.2 (message){the message to output with this level}
+#.3H Print a message at the DEBUG level.
+#.--
 logger::debug() {
   logger::_print 10 "$@"
 }
 
-# print a INFO message
-# arguments:
-#   $1 : the user message
+#.--
+#.1 Print a INFO message
+#.2 (message){the message to output with this level}
+#.3H Print a message at the INFO level.
+#.--
 logger::info() {
   logger::_print 20 "$@"
 }
 
-# print a WARNING message
-# arguments:
-#   $1 : the user message
+#.--
+#.1 Print a WARNING message
+#.2 (message){the message to output with this level}
+#.3H Print a message at the WARNING level.
+#.--
 logger::warning() {
   logger::_print 30 "$@"
 }
 
-# print a ERROR message
-# arguments:
-#   $1 : the user message
+#.--
+#.1 Print a ERROR message
+#.2 (message){the message to output with this level}
+#.3H Print a message at the ERROR level.
+#.--
 logger::error() {
   logger::_print 40 "$@"
 }
 
-# print a CRITICAL message
-# arguments:
-#   $1 : the user message
+#.--
+#.1 Print a CRITICAL message
+#.2 (message){the message to output with this level}
+#.3H Print a message at the CRITICAL level.
+#.--
 logger::critical() {
   logger::_print 50 "$@"
 }
