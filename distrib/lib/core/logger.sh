@@ -66,9 +66,9 @@ logger::_fromName() {
 #.3H .br
 #.3H - \fBDEBUG\fR !!
 #.3H - \fBINFO\fR (default) !!
-#.3H - \fBWARNING\fR (default) !!
-#.3H - \fBERROR\fR (default) !!
-#.3H - \fBCRITICAL\fR (default) !!
+#.3H - \fBWARNING\fR !!
+#.3H - \fBERROR\fR !!
+#.3H - \fBCRITICAL\fR !!
 #.3F The level is set until another call to the function changes it.
 #.4 Set the LOG Level to CRITICAL
 #.4 $ logger::setLogLevel CRITICAL
