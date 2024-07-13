@@ -1,12 +1,13 @@
 #!/bin/bash
 
 #----- globals
-SCRIPT_NAME=$(basename ${BASH_SOURCE})
-SCRIPT_DIR=$(dirname ${BASH_SOURCE})
+# shellcheck disable=SC2128
+SCRIPT_NAME=$(basename "${BASH_SOURCE}")
+SCRIPT_DIR=$(dirname "${BASH_SOURCE}")
 
 # $1 => directory to look for functions
 SOURCE_DIR="$1"
-TARGET_DIR=$( realpath ${SCRIPT_DIR}/../distrib/man/man1 )
+TARGET_DIR=$( realpath "${SCRIPT_DIR}/../distrib/man/man1" )
 
 TMP_DIR=/tmp/${SCRIPT_NAME%.sh}.$$
 
@@ -51,11 +52,12 @@ writeSynopsis() {
   { echo ".SH SYNOPSIS"; echo ".B ${__name}"; } >> "${TMP_DIR}/output"
 
   for __value in "${__values[@]}"; do
+    # shellcheck disable=SC2001
     __option=$(echo "${__value}" | sed -e 's/(\([^)]*\)){.*/\1/')
 
     if [[ "${__option}" =~ = ]]; then
-      echo ".IR [$(echo ${__option} | cut -d= -f1)" >> "${TMP_DIR}/output"
-      echo ".IR $(echo ${__option} | cut -d= -f2)]" >> "${TMP_DIR}/output"
+      echo ".IR [$(echo "${__option}" | cut -d= -f1)" >> "${TMP_DIR}/output"
+      echo ".IR $(echo "${__option}" | cut -d= -f2)]" >> "${TMP_DIR}/output"
     else
       echo ".IR [${__option}]" >> "${TMP_DIR}/output"
     fi
@@ -108,20 +110,25 @@ writeOptions() {
   echo -e "\nOptions:\n" >> "${TMP_DIR}/output"
 
   for __line in "${__options[@]}"; do
-    __option=$(echo ${__line} | sed -e 's/(\([^)]*\)){.*/\1/')
-    __desc=$(echo ${__line} | sed -e 's/.*{\([^}]*\)}/\1/')
+    # shellcheck disable=SC2001
+    __option=$(echo "${__line}" | sed -e 's/(\([^)]*\)){.*/\1/')
+    # shellcheck disable=SC2001
+    __desc=$(echo "${__line}" | sed -e 's/.*{\([^}]*\)}/\1/')
 
     # option with a parameter
     if [[ "${__option}" =~ = ]]; then
       # extract the option and its parameter
       [[ "${__option}" =~ ^([^=]*)=(.*) ]]
+      # shellcheck disable=SC2028
       echo "\fB${BASH_REMATCH[1]}\fR \fI${BASH_REMATCH[2]}\fR" >> "${TMP_DIR}/output"
     else
+      # shellcheck disable=SC2028
       echo "\fB${__option}\fR" >> "${TMP_DIR}/output"
     fi
 
     {
       echo ".RS" >> "${TMP_DIR}/output"
+      # shellcheck disable=SC2001
       echo "${__desc}" | sed -e 's/|/\n.br\n/g'
       echo -e ".RE\n.br\n"
     } >> "${TMP_DIR}/output"
@@ -163,7 +170,7 @@ processFile() {
 
       # move the file to its destination
       __filename="bsfpe_${__name/::/_}.1"
-      echo -e "\t- Writing [$(basename ${TARGET_DIR}/${__filename})]"
+      echo -e "\t- Writing [$(basename "${TARGET_DIR}"/"${__filename}")]"
       mv "${TMP_DIR}/output" "${TARGET_DIR}/${__filename}"
 
       # purge data
