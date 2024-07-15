@@ -11,12 +11,20 @@ __bin=$(which bc)
 
 
 #----- public functions
-
-# format a size in Bytes to the minimum representable unit
-# arguments:
-#   $1 : the size in Bytes
-# return:
-#   a string representing the size with the unit
+#.--
+#.1 Format a size value to human readable
+#.2 (value){the value in Bytes}
+#.3H Format a value in Bytes to its closest representable value. !!
+#.3F Supported values are:
+#.3F .br
+#.3F - \fBBytes\fR (B)!!
+#.3F - \fBKiloBytes\fR (KiB) !!
+#.3F - \fBMegaBytes\fR (MiB) !!
+#.3F - \fBGigaBytes\fR (GiB) !!
+#.3F - \fBTeraBytes\fR (TiB)!!
+#.4 Convert this size
+#.4 $ format::size 576345     # output: 562.836 KiB
+#.--
 format::size() {
   local __value=$1
   local __units=("B" "KiB" "MiB" "GiB" "TiB")
