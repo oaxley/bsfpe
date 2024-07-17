@@ -14,26 +14,45 @@ source "${BSFPE_LIBRARY_DIR}/lib/core/logger.sh"
 __stack=()
 
 #----- public functions
-# return the number of elements in the stack
+#.--
+#.1 Stack size
+#.3H This function returns the number of elements currently in the stack.
+#.4 Get the stack size
+#.4 $ stack::push 10; stack::push 20; stack::count      # output: 2
+#.--
 stack::count() {
   echo "${#__stack[@]}"
 }
 
-# print the stack (for debug)
+#.--
+#.1 Stack print
+#.3H This function prints the content of the stack. !!
+#.3H Its use is mainly for debugging during development.
+#.4 Print the stack
+#.4 $ stack::print      # output: [10 20]
+#.--
 stack::print() {
   echo "${__stack[@]}"
 }
 
-# add a new item on top of the stack
-# arguments:
-#   $1 : the element to push on the stack
+#.--
+#.1 Stack push
+#.2 (value){The value to push on top of the stack.}
+#.3H Push a new value on top of the stack, increasing the stack size by 1.
+#.4 Push the value '10' on top of the stack
+#.4 $ stack::push 10
+#.--
 stack::push() {
   __stack+=("$1")
 }
 
-# remove the last element from the top
-# returns:
-#   the last element on top of the stack
+#.--
+#.1 Stack pop
+#.3H Removes the value on top of the stack and returns it to the caller.
+#.3H The stack size is reduced by 1 after this.
+#.4 Remove the top value
+#.4 $ stack::pop
+#.--
 stack::pop() {
   local __index
   local __item
@@ -49,7 +68,13 @@ stack::pop() {
   echo "${__item}"
 }
 
-# get the top element, without removing it
+#.--
+#.1 Stack top
+#.3H Read the value on top of the stack and returns it to the caller.
+#.3H The stack size is not modified by this function.
+#.4 Read the top value
+#.4 $ stack::top
+#.--
 stack::top() {
   local __index
   __index=$(( $(stack::count) - 1 ))
@@ -57,7 +82,13 @@ stack::top() {
   echo "${__stack[${__index}]}"
 }
 
-# duplicate top item
+#.--
+#.1 Stack duplicate
+#.3H Duplicate the value on top of the stack.
+#.3H The stack size is increased by 1 after this.
+#.4 Duplicate the top value
+#.4 $ stack::dup
+#.--
 stack::dup() {
   local __index
   __index=$(( $(stack::count) - 1 ))
@@ -65,7 +96,13 @@ stack::dup() {
   __stack+=( "${__stack[${__index}]}" )
 }
 
-# drop the top item
+#.--
+#.1 Stack drop
+#.3H Removes the value on top of the stack and but does not return it to the caller.
+#.3H The stack size is reduced by 1 after this.
+#.4 Remove the top value
+#.4 $ stack::drop
+#.--
 stack::drop() {
   local __index
   __index=$(( $(stack::count) - 1 ))
@@ -74,7 +111,13 @@ stack::drop() {
   unset __stack[${__index}]
 }
 
-# swap the top 2 elements
+#.--
+#.1 Stack swap
+#.3H Swap the top element and the one just below.
+#.3H The stack size is not modified after this.
+#.4 Swap the values
+#.4 $ stack::swap
+#.--
 stack::swap() {
   local __index1
   local __index2
@@ -89,7 +132,14 @@ stack::swap() {
   __stack[__index2]=${__tmp}
 }
 
-# rotate the stack. bottom of the stack -> top of the stack
+#.--
+#.1 Stack rotate
+#.3H Rotate the element from the stack.
+#.3H After this function is executed, the element at the bottom of the stack is now the top element. !!
+#.3H The previous top element, is now the element just below.
+#.4 Rotate the stack
+#.4 $ stack::rotate
+#.--
 stack::rotate() {
   local __count
   __count=$(stack::count)
@@ -100,7 +150,13 @@ stack::rotate() {
   unset __stack[0]
 }
 
-# clear the whole stack
+#.--
+#.1 Stack clear
+#.3H Remove all the elements in the stack.
+#.3H The stack size will be 0 after this command.
+#.4 Clear the stack
+#.4 $ stack::clear
+#.--
 stack::clear() {
   __stack=()
 }
