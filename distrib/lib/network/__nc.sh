@@ -12,11 +12,15 @@ __bin=$(which nc)
 
 #----- public functions
 
-# test if a host:port is opened
-# arguments:
-#   $1 : a string "host:port"
-# return:
-#   0 if the connection is successful, >0 otherwise
+#.--
+#.1 Test for connection
+#.2 (host:port){The \fBhost\fR:\fBport\fR of the remote connection.}
+#.3H This function will try to connect to the remote only to validate if the connection is opened. !!
+#.3H This is useful in case you suspect a firewall is dropping the connection.
+#.3F The function will return True (0) if the connection was successful, >0 otherwise.
+#.4 Try to connect to Redis in the remote host
+#.4 $ network::zero_connect 172.17.0.2:6319
+#.--
 network::zero_connect() {
   # shellcheck disable=SC2155
   local _hostname=$(echo "$1" | cut -d: -f1)
