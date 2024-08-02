@@ -22,12 +22,18 @@ __bin=$(which nc)
 #.4 $ network::zero_connect 172.17.0.2:6319
 #.--
 network::zero_connect() {
-  # shellcheck disable=SC2155
-  local _hostname=$(echo "$1" | cut -d: -f1)
+  # split host/port
+  [[ "$1" =~ ([^:]+):([0-9]+) ]]
 
-  # shellcheck disable=SC2155
-  local _port=$(echo "$1" | cut -d: -f2)
+  # suppress the output in non-interactive
+  if [[ "$-" != *i* ]]; then
+    nc -zv "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" >/dev/null 2>&1
+    __result=$?
+  else
+    nc -zv "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}"
+    __result=$?
+  fi
 
-  nc -zv "${_hostname}" "${_port}"
+  return ${__result}
 }
 
