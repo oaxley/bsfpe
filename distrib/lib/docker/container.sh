@@ -28,7 +28,8 @@ docker::log_path() {
 #.4 $ docker::get_name 0997655add3d
 #.--
 docker::get_name() {
-  docker inspect --type container "$1" | jq -r '.[].Name' | cut -c2-
+  __name=$(docker inspect --type container "$1" | jq -r '.[].Name')
+  echo "${__name:1}"
 }
 
 #.--
@@ -52,7 +53,9 @@ docker::get_id() {
 #.4 $ docker::image_id magical_wand
 #.--
 docker::image_id() {
-  docker inspect --type container "$1" | jq -r '.[].Image' | cut -d: -f2
+  __sha256=$(docker inspect --type container "$1" | jq -r '.[].Image')
+  [[ "${__sha256}" =~ sha256:(.*) ]]
+  echo "${BASH_REMATCH[1]}"
 }
 
 #.--
@@ -66,7 +69,7 @@ docker::image_id() {
 #.--
 docker::image_id_short() {
   # shellcheck disable=SC2155
-  local __image=$(docker::image_id "$1")
-  echo "${__image}" | cut -c-12
+  __image_id=$(docker::image_id "$1")
+  echo "${__image_id:0:12}"
 }
 

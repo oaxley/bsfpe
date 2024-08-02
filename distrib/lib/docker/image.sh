@@ -28,7 +28,8 @@ docker::image_tag() {
 docker::image_name() {
   # shellcheck disable=SC2155
   local __image_tag=$(docker::image_tag "$1")
-  echo "${__image_tag}" | cut -d: -f1
+  [[ "${__image_tag}" =~ ^([^:]+):(.*) ]]
+  echo "${BASH_REMATCH[1]}"
 }
 
 #.--
@@ -41,7 +42,8 @@ docker::image_name() {
 docker::image_version() {
   # shellcheck disable=SC2155
   local __image_tag=$(docker::image_tag "$1")
-  echo "${__image_tag}" | cut -d: -f2
+  [[ "${__image_tag}" =~ ^([^:]+):(.*) ]]
+  echo "${BASH_REMATCH[2]}"
 }
 
 #.--
