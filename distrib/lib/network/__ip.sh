@@ -20,7 +20,7 @@ __bin=$(which ip)
 #.4 $ network::mac_address eth0
 #.--
 network::mac_address() {
-  ip link show "$1" | grep ether | awk '{print $2}'
+  ip address show "$1" | awk '($0 ~ /ether/) {print $2}'
 }
 
 #.--
@@ -32,6 +32,6 @@ network::mac_address() {
 #.4 $ network::ip_address eth0
 #.--
 network::ip_address() {
-  ip address show dev "$1" | grep inet | awk '{print $2}'
+  ip address show "$1" | awk '($0 ~ /inet/) {print $2}'
 }
 
