@@ -1,39 +1,17 @@
 # Bash Scripts for Production Environment (BSFPE)
 
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Bash Script](https://img.shields.io/badge/bash_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
+
 ## Purpose
 
-This repository contains a suite of scripts and functions in Python or Bash that I developed along
-the years and extensively used in production environment.  
+A suite of scripts and functions developed and used in production environments for several years.  
+They are listed here mainly for reference and because I got tired of rewriting them all the time as
+I switch jobs.
 
 ## Description
 
-### Functions
-
-`logger.sh`
-> print information in a standard and cohesive way accross scripts
-
-`network.sh`
-> utilities to help with network tasks and troubleshoot  
-
-`random.sh`
-> functions to help with random number generation in scripts  
-
-`system.sh`
-> basic system functions
-
-`uuid.sh`
-> generate random UUID numbers
-
-### Scripts
-
-`config`
-> INI, TOML and YAML configuration parser and key lookup  
-
-`mcast`
-> scripts for listening & publishing multicast packets with record/replay capabilities  
-
-`kvstore`
-> simple Key/Value store for scripts  
+### WORK IN PROGRESS
 
 ## Usage
 
