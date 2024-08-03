@@ -35,3 +35,26 @@ network::ip_address() {
   ip address show "$1" | awk '($0 ~ /inet/) {print $2}'
 }
 
+#.--
+#.1 Retrieve the hostid
+#.3H Retrieve the hostid of the machine
+#.--
+network::hostid() {
+  hostid
+}
+
+#.--
+#.1 Retrieve the full FQDN
+#.3H Retrieve the Full Qualified Domain Name (FQDN) of the machine.
+#.--
+network::fqdn() {
+  hostname -df
+}
+
+#.--
+#.1 Retrieve the short hostname
+#.3H Retrieve the short hostname of the machine.
+#.--
+network::hostname() {
+  hostname -ds
+}
