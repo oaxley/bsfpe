@@ -24,32 +24,82 @@ fi
 
 
 #----- functions
-
+#.--
+#.1 Create a new key/value pair
+#.2 (key){key to insert.}
+#.2 (value|@TTL){value to associate with the key, or TTL to set.}
+#.3H Insert a new key/value pair or add a TTL to an existing key. !!
+#.3H In its first form, a new value is inserted in the store and associated with the key. !!
+#.3H When the value starts with '@', set a Time To Live (TTL) to an existing key.
+#.3H The TTL is expressed in seconds.
+#.3F Keys those TTL has elapsed are non longer available. Keys with a TTL of 0 (default) do not expire.
+#.4 Create a new key 'my_string' in the store
+#.4 $ kvstore::set my_string "Hello, World!"
+#.4 Add a TTL of 5 minutes (300 seconds) to the key 'my_string'
+#.4 $ kvstore::set my_string @300
+#.--
 kvstore::set() {
   :
 }
 
+#.--
+#.1 Get the value associated with a key
+#.2 (key){the key to lookup in the store.}
+#.3H Only keys which did not expire can be retrieved.
+#.4 Retrieve the value associated with 'my_string'
+#.4 $ kvstore::get my_string
+#.--
 kvstore::get() {
   :
 }
 
+#.--
+#.1 Remove a key from the store
+#.2 (key){the key to lookup in the store.}
+#.3F Once the key has been deleted, it cannot be retrieved.
+#.4 Delete the key 'my_string' from the store
+#.4 $ kvstore::del my_string
+#.--
 kvstore::del() {
   :
 }
 
+#.--
+#.1 Clean the store from expired keys
+#.3H This command will effectively remove keys that are no longer relevant or expired from the store.
+#.3H Modifying the store while the command is running will lead to an undefined state of the store. !!
+#.3H It is preferable to run this command automatically when there are no activities.
+#.4 Clean the store
+#.4 $ kvstore::clean
+#.--
 kvstore::clean() {
   :
 }
 
+#.--
+#.1 Print the keys available in the store
+#.3H This command will print all the available keys and their corresponding TTL (if any).
+#.3H It is mainly a debug command for scripts.
+#.4 Print the keys available in the store
+#.4 $ kvstore::print
+#.--
 kvstore::print() {
   :
 }
 
+#.--
+#.1 Check for a key in the store
+#.2 (key){the key to lookup in the store}
+#.3H Look in the store if a key is present or not. !!
+#.3H This is an alias to kvstore::get.
+#.3F This function returns True (0) if the key is present, False (1) otherwise.
+#.4 Check for key 'my_string'
+#.4 $ kvstore::is_exist 'my_string'
+#.--
 kvstore::is_exist() {
-  :
+  kvstore::get "$1" >/dev/null 2>&1
+  return $?
 }
-
-
 
 
 
