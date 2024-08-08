@@ -113,7 +113,22 @@ kvstore::get() {
 #.4 $ kvstore::del my_string
 #.--
 kvstore::del() {
-  :
+  # retrieve the key from the cmdline
+  __key="$1"
+
+  # no key specified
+  [[ -z "${__key}" ]] && return 1
+
+  # retrieve the last occurence of the key
+  __value=$(grep "^${__key}:" "${STORE_PATH}" | tail -1)
+  [[ -z "${__value}" ]] && return 1
+
+  # set the TTL to 300s from now
+  __datetime=$(date "+%s")
+  __ttl=$(( __datetime - 300 ))
+
+  # add a new line in the store with only the key/ttl
+  echo "${__key}:${__ttl}:dummy" >> "${STORE_PATH}"
 }
 
 #.--
