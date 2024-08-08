@@ -83,6 +83,9 @@ kvstore::set() {
 #.4 $ kvstore::get my_string
 #.--
 kvstore::get() {
+  # exit if the store does not exist
+  [[ ! -e "${STORE_PATH}" ]] && return 1
+
   # retrieve the key from the cmdline
   __key="$1"
 
@@ -113,6 +116,9 @@ kvstore::get() {
 #.4 $ kvstore::del my_string
 #.--
 kvstore::del() {
+  # exit if the store does not exist
+  [[ ! -e "${STORE_PATH}" ]] && return 1
+
   # retrieve the key from the cmdline
   __key="$1"
 
@@ -140,6 +146,9 @@ kvstore::del() {
 #.4 $ kvstore::clean
 #.--
 kvstore::clean() {
+  # exit if the store does not exist
+  [[ ! -e "${STORE_PATH}" ]] && return 1
+
   __datetime=$(date "+%s")
 
   # we store temporarly the keys in an associative array
@@ -173,6 +182,9 @@ kvstore::clean() {
 #.4 $ kvstore::print
 #.--
 kvstore::print() {
+  # exit if the store does not exist
+  [[ ! -e "${STORE_PATH}" ]] && return 1
+
   __datetime=$(date "+%s")
 
   while read -r __value; do
