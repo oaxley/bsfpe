@@ -69,12 +69,31 @@ kvstore::set() {
 #.--
 #.1 Get the value associated with a key
 #.2 (key){the key to lookup in the store.}
-#.3H Only keys which did not expire can be retrieved.
+#.3H Only keys that have not expired can be retrieved.
 #.4 Retrieve the value associated with 'my_string'
 #.4 $ kvstore::get my_string
 #.--
 kvstore::get() {
-  :
+  # retrieve the key from the cmdline
+  __key="$1"
+
+  # no key specified
+  [[ -z "${__key}" ]] && return 1
+
+  # retrieve the last occurence of the key
+  __value=$(grep "^${__key}:" "${STORE_PATH}" | tail -1)
+  [[ -z "${__value}" ]] && return 1
+
+  # split the data in parts
+  [[ "${__value}" =~ ^([^:]+):([0-9]+):(.*) ]]
+
+  if (( BASH_REMATCH[2] > 0 )); then
+    # there is a TTL, check against the current time
+    __datetime=$(date "+%s")
+    (( __datetime > BASH_REMATCH[2] )) && return 1
+  fi
+
+  echo "${BASH_REMATCH[3]}" | base64 -d
 }
 
 #.--
