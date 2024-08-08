@@ -50,12 +50,21 @@ kvstore::set() {
   # check for the timestamp marker
   if [[ "${__value:0:1}" == "@" ]]; then
     # retrieve the last occurence of the key
-    __value_b64=$(grep "^${__key}:" "${STORE_PATH}" | tail -1 | cut -d: -f3)
-    [[ -z "${__value_b64}" ]] && return 1
+    __data=$(grep "^${__key}:" "${STORE_PATH}" | tail -1)
+    [[ -z "${__data}" ]] && return 1
 
-    # compute the timestamp from the current datetime
-    __timestamp=$(date "+%s")
-    __ttl=$(( __timestamp + ${__value:1} ))
+    # split data in parts
+    [[ "${__data}" =~ ^([^:]+):([0-9]+):(.*) ]]
+    __value_b64="${BASH_REMATCH[3]}"
+
+    # current datetime
+    __datetime=$(date "+%s")
+
+    # check if the key is not expired already
+    (( BASH_REMATCH[2] > 0 )) && (( __datetime > BASH_REMATCH[2] )) && return 1
+
+    # set the new TTL
+    __ttl=$(( __datetime + ${__value:1} ))
   else
     # encode the value to base64
     __value_b64=$(echo "${__value}" | base64 -w0)
