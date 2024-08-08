@@ -32,14 +32,38 @@ fi
 #.3H In its first form, a new value is inserted in the store and associated with the key. !!
 #.3H When the value starts with '@', set a Time To Live (TTL) to an existing key.
 #.3H The TTL is expressed in seconds.
-#.3F Keys those TTL has elapsed are non longer available. Keys with a TTL of 0 (default) do not expire.
+#.3F Keys those TTL has elapsed are non longer available. Keys with a TTL of 0 (default) do not expire. !!
+#.3F Function returns True (0) when successful, False (1) otherwise.
 #.4 Create a new key 'my_string' in the store
 #.4 $ kvstore::set my_string "Hello, World!"
 #.4 Add a TTL of 5 minutes (300 seconds) to the key 'my_string'
 #.4 $ kvstore::set my_string @300
 #.--
 kvstore::set() {
-  :
+  # retrieve the key and the value from the cmdline
+  __key="$1"; shift
+  __value="$*"
+
+  # no value specified
+  [[ -z "${__value}" ]] && return 1
+
+  # check for the timestamp marker
+  if [[ "${__value:0:1}" == "@" ]]; then
+    # retrieve the last occurence of the key
+    __value_b64=$(grep "^${__key}:" "${STORE_PATH}" | tail -1 | cut -d: -f3)
+    [[ -z "${__value_b64}" ]] && return 1
+
+    # compute the timestamp from the current datetime
+    __timestamp=$(date "+%s")
+    __ttl=$(( __timestamp + ${__value:1} ))
+  else
+    # encode the value to base64
+    __value_b64=$(echo "${__value}" | base64 -w0)
+    __ttl=0
+  fi
+
+  # add the new entry
+  echo "${__key}:${__ttl}:${__value_b64}" >> "${STORE_PATH}"
 }
 
 #.--
