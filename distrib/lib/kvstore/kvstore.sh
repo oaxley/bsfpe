@@ -156,7 +156,7 @@ kvstore::clean() {
     __elements["${BASH_REMATCH[1]}"]="${BASH_REMATCH[0]}"
   done < "${STORE_PATH}"
 
-  # create a temporary store
+  # create a temporary store with the elements
   for __key in "${!__elements[@]}"; do
     echo "${__elements[${__key}]}" >> "${STORE_PATH}.tmp"
   done
@@ -173,7 +173,18 @@ kvstore::clean() {
 #.4 $ kvstore::print
 #.--
 kvstore::print() {
-  :
+  __datetime=$(date "+%s")
+
+  while read -r __value; do
+    # split data
+    [[ "${__value}" =~ ^([^:]+):([0-9]+):(.*) ]]
+
+    # remove expired items
+    (( BASH_REMATCH[2] > 0 )) && (( __datetime > BASH_REMATCH[2] )) && continue
+
+    # print the key and expiry time
+    echo "${BASH_REMATCH[1]} (${BASH_REMATCH[2]})"
+  done < "${STORE_PATH}"
 }
 
 #.--
@@ -189,8 +200,3 @@ kvstore::is_exist() {
   kvstore::get "$1" >/dev/null 2>&1
   return $?
 }
-
-
-
-
-
