@@ -187,16 +187,23 @@ kvstore::print() {
 
   __datetime=$(date "+%s")
 
+  # store key in an associative array, to keep only last occurence
+  declare -A __elements
   while read -r __value; do
     # split data
     [[ "${__value}" =~ ^([^:]+):([0-9]+):(.*) ]]
+    __elements[${BASH_REMATCH[1]}]=${BASH_REMATCH[2]}
+  done < "${STORE_PATH}"
+
+  # print everything
+  for __key in "${!__elements[@]}"; do
 
     # remove expired items
-    (( BASH_REMATCH[2] > 0 )) && (( __datetime > BASH_REMATCH[2] )) && continue
+    __ttl=${__elements[${__key}]}
+    (( __ttl > 0 )) && (( __datetime > __ttl )) && continue
 
-    # print the key and expiry time
-    echo "${BASH_REMATCH[1]} (${BASH_REMATCH[2]})"
-  done < "${STORE_PATH}"
+    echo "${__key} (${__ttl})"
+  done
 }
 
 #.--
