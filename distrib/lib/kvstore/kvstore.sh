@@ -152,22 +152,25 @@ kvstore::clean() {
   __datetime=$(date "+%s")
 
   # we store temporarly the keys in an associative array
-  # to remove duplicates and key only the last occurence
+  # to remove duplicates and keep only the last occurence
   declare -A __elements
   while read -r __value; do
+    # split data
+    [[ "${__value}" =~ ^([^:]+):([0-9]+):(.*) ]]
+    __elements["${BASH_REMATCH[1]}"]="${__value}"
+  done < "${STORE_PATH}"
+
+  # create a temporary store with the elements
+  for __key in "${!__elements[@]}"; do
+    __value="${__elements[${__key}]}"
+
     # split data
     [[ "${__value}" =~ ^([^:]+):([0-9]+):(.*) ]]
 
     # remove expired items
     (( BASH_REMATCH[2] > 0 )) && (( __datetime > BASH_REMATCH[2] )) && continue
 
-    # keep the rest
-    __elements["${BASH_REMATCH[1]}"]="${BASH_REMATCH[0]}"
-  done < "${STORE_PATH}"
-
-  # create a temporary store with the elements
-  for __key in "${!__elements[@]}"; do
-    echo "${__elements[${__key}]}" >> "${STORE_PATH}.tmp"
+    echo "${__value}" >> "${STORE_PATH}.tmp"
   done
 
   # switch to new store
