@@ -34,3 +34,50 @@ maths::length() {
   echo ${#__values[@]}
 }
 
+#.--
+#.1 Returns the minimum value of the array
+#.--
+maths::minimum() {
+  local __min=${__values[0]}
+  for __value in "${__values[@]}"; do
+    if (( __value < __min )); then
+      __min=${__value}
+    fi
+  done
+  echo "${__min}"
+}
+
+#.--
+#.1 Returns the maximum value of the array
+#.--
+maths::maximum() {
+  local __max=${__values[0]}
+  for __value in "${__values[@]}"; do
+    if (( __value > __max )); then
+      __max=${__value}
+    fi
+  done
+  echo "${__max}"
+}
+
+#.--
+#.1 Returns the sum of the array
+#.--
+maths::sum() {
+  local __sum=0
+  for __value in "${__values[@]}"; do
+    __sum=$(( __sum + __value ))
+  done
+  echo "${__sum}"
+}
+
+#.--
+#.1 Returns the average of the array
+#.--
+maths::average() {
+  local __sum, __len
+
+  __sum=$(maths::sum)
+  __len=$(maths::length)
+  echo "scale=3; ${__sum} / ${__len}" | bc -l
+}
