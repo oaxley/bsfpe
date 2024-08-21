@@ -78,6 +78,22 @@ maths::average() {
   local __sum, __len
 
   __sum=$(maths::sum)
-  __len=$(maths::length)
+  __len=${#__values[@]}
   echo "scale=3; ${__sum} / ${__len}" | bc -l
+}
+
+#.--
+#.1 Returns the median value of the array
+#.--
+maths::median() {
+  local __length=${#__values[@]}
+  local __middle=$(( __length / 2 ))
+  # shellcheck disable=SC2207
+  local __sorted=($(printf "%s\n" "${__values[@]}" | sort -n ))
+
+  if (( __length % 2 == 0 )); then
+    echo "scale=3; ( ${__sorted[$__middle]} + ${__sorted[$__middle - 1]}) / 2" | bc -l
+  else
+    echo "${__sorted[$__middle]}"
+  fi
 }
