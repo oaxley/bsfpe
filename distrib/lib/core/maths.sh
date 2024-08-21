@@ -97,3 +97,29 @@ maths::median() {
     echo "${__sorted[$__middle]}"
   fi
 }
+
+#.--
+#.1 Returns the variance of the array
+#.--
+maths::variance() {
+  local __mean, __sum, __diff, __length
+
+  __length=${#__values[@]}
+  __mean=$(maths::average)
+  __sum=0
+  for __value in "${__values[@]}"; do
+    __diff=$(echo "scale=3; ${__value} - ${__mean}" | bc -l)
+    __sum=$(echo "scale=3; ${__sum} + ${__diff} * ${__diff}" | bc -l)
+  done
+
+  echo "scale=3; ${__sum} / ${__length}" | bc -l
+}
+
+#.--
+#.1 Returns the standard deviation
+#.--
+maths::stddev() {
+  local __variance
+  __variance=$(maths::variance)
+  echo "scale=3; sqrt( ${__variance} )" | bc -l
+}
