@@ -137,9 +137,9 @@ maths::stddev() {
 #.--
 maths::percentile() {
 
-  __percent="$1"
+  local __percent="$1"
   # shellcheck disable=SC2207
-  __sorted=($(printf "%s\n" "${__values[@]}" | sort -n ))
+  local __sorted=($(printf "%s\n" "${__values[@]}" | sort -n ))
 
   # boundaries checking
   (( __percent < 0 || __percent > 100 )) && return 1
@@ -147,16 +147,16 @@ maths::percentile() {
   (( __percent == 100 )) && echo "${__sorted[-1]}" && return 0
 
   # compute the index
-  __length=${#__values[@]}
-  __index=$(echo "scale=2; (${__percent} * (${__length} - 1)) / 100" | bc -l)
+  local __length=${#__values[@]}
+  local __index=$(echo "scale=2; (${__percent} * (${__length} - 1)) / 100" | bc -l)
 
   # get the interger/decimal part
-  __int=${__index%.*}
-  __dec=${__index#*.}
+  local __int=${__index%.*}
+  local __dec=${__index#*.}
 
   # lower & upper value
-  __lower=${__sorted[${__int}]}
-  __upper=${__sorted[${__int} + 1]}
+  local __lower=${__sorted[${__int}]}
+  local __upper=${__sorted[${__int} + 1]}
 
   # compute the value
   echo "scale=3; ${__lower} + (${__upper} - ${__lower}) * (${__dec} / 100)" | bc -l
