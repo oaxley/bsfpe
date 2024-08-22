@@ -127,3 +127,37 @@ maths::stddev() {
   __variance=$(maths::variance)
   echo "scale=3; sqrt( ${__variance} )" | bc -l
 }
+
+#.--
+#.1 Returns the kth percentile of the array
+#.2 (kth){Percentile value (10, 20, ...)}
+#.3F The value returned has 3 decimals.
+#.4 Get the 75th percentile of the array
+#.4 $ maths::percentile 75
+#.--
+maths::percentile() {
+
+  __percent="$1"
+  # shellcheck disable=SC2207
+  __sorted=($(printf "%s\n" "${__values[@]}" | sort -n ))
+
+  # boundaries checking
+  (( __percent < 0 || __percent > 100 )) && return 1
+  (( __percent == 0 )) && echo "${__sorted[0]}" && return 0
+  (( __percent == 100 )) && echo "${__sorted[-1]}" && return 0
+
+  # compute the index
+  __length=${#__values[@]}
+  __index=$(echo "scale=2; (${__percent} * (${__length} - 1)) / 100" | bc -l)
+
+  # get the interger/decimal part
+  __int=${__index%.*}
+  __dec=${__index#*.}
+
+  # lower & upper value
+  __lower=${__sorted[${__int}]}
+  __upper=${__sorted[${__int} + 1]}
+
+  # compute the value
+  echo "scale=3; ${__lower} + (${__upper} - ${__lower}) * (${__dec} / 100)" | bc -l
+}
