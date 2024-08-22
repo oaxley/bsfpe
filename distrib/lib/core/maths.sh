@@ -73,6 +73,7 @@ maths::sum() {
 
 #.--
 #.1 Returns the average of the array
+#.3F The value returned has 3 decimals.
 #.--
 maths::average() {
   local __sum, __len
@@ -84,6 +85,7 @@ maths::average() {
 
 #.--
 #.1 Returns the median value of the array
+#.3F The value returned has 3 decimals.
 #.--
 maths::median() {
   local __length=${#__values[@]}
@@ -100,6 +102,7 @@ maths::median() {
 
 #.--
 #.1 Returns the variance of the array
+#.3F The value returned has 3 decimals.
 #.--
 maths::variance() {
   local __mean, __sum, __diff, __length
@@ -117,6 +120,7 @@ maths::variance() {
 
 #.--
 #.1 Returns the standard deviation
+#.3F The value returned has 3 decimals.
 #.--
 maths::stddev() {
   local __variance
