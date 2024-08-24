@@ -13,6 +13,8 @@ __file_descriptor=968
 #----- private functions
 # create the lock file from the script name
 lock::_lockfile_name() {
+  local __script_name, __lockfile
+
   # retrieve the current script name, derive the lock file name from it
   __script_name=$(basename "$0")
   __lockfile="/tmp/${__script_name%.sh}.lock"
@@ -34,6 +36,8 @@ lock::_lockfile_name() {
 #.3F The function returns True (0) if the lock was acquired, False (1) otherwise
 #.--
 lock::acquire() {
+  local __lockfile
+
   # retrieve the name of the lock
   __lockfile=$(lock::_lockfile_name)
 
@@ -52,6 +56,8 @@ lock::acquire() {
 #.3F The function returns True (0) if the lock was released, False (1) otherwise
 #.--
 lock::release() {
+  local __result
+
   # release the lock
   flock -u ${__file_descriptor}
   __result=$?
