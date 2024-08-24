@@ -22,6 +22,8 @@ __bin=$(which nc)
 #.4 $ network::zero_connect 172.17.0.2:6319
 #.--
 network::zero_connect() {
+  local __result
+
   # split host/port
   [[ "$1" =~ ([^:]+):([0-9]+) ]]
 
