@@ -8,7 +8,6 @@
 #----- globals
 
 # retrieve the script name and location
-SCRIPT_NAME=$(basename "$0")
 SCRIPT_DIR=$(dirname "$0")
 if [[ "${SCRIPT_DIR}" == "." ]]; then
   SCRIPT_DIR=$(pwd)
@@ -40,6 +39,9 @@ fi
 #.4 $ kvstore::set my_string @300
 #.--
 kvstore::set() {
+  local __key, __value, __data, __ttl
+  local __value_b64, __datetime
+
   # retrieve the key and the value from the cmdline
   __key="$1"; shift
   __value="$*"
@@ -83,6 +85,8 @@ kvstore::set() {
 #.4 $ kvstore::get my_string
 #.--
 kvstore::get() {
+  local __key, __value, __datetime
+
   # exit if the store does not exist
   [[ ! -e "${STORE_PATH}" ]] && return 1
 
@@ -116,6 +120,8 @@ kvstore::get() {
 #.4 $ kvstore::del my_string
 #.--
 kvstore::del() {
+  local __key, __value, __ttl, __datetime
+
   # exit if the store does not exist
   [[ ! -e "${STORE_PATH}" ]] && return 1
 
@@ -146,6 +152,8 @@ kvstore::del() {
 #.4 $ kvstore::clean
 #.--
 kvstore::clean() {
+  local __datetime, __key, __value, __elements
+
   # exit if the store does not exist
   [[ ! -e "${STORE_PATH}" ]] && return 1
 
@@ -185,6 +193,8 @@ kvstore::clean() {
 #.4 $ kvstore::print
 #.--
 kvstore::print() {
+  local __datetime, __key, __value, __ttl, __elements
+
   # exit if the store does not exist
   [[ ! -e "${STORE_PATH}" ]] && return 1
 
