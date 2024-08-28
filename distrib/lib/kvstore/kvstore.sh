@@ -7,18 +7,12 @@
 
 #----- globals
 
-# retrieve the script name and location
-SCRIPT_DIR=$(dirname "$0")
-if [[ "${SCRIPT_DIR}" == "." ]]; then
-  SCRIPT_DIR=$(pwd)
-fi
-
 # store location
 if [[ -z ${XDG_CONFIG_DIR} ]]; then
-  STORE_PATH=${HOME}/.kvstore
+  BSFPE_KVSTORE_PATH=${HOME}/.kvstore
 else
   [[ ! -d ${XDG_CONFIG_DIR} ]] && mkdir -p "${XDG_CONFIG_DIR}/user"
-  STORE_PATH="${XDG_CONFIG_DIR}/user/kvstore"
+  BSFPE_KVSTORE_PATH="${XDG_CONFIG_DIR}/user/kvstore"
 fi
 
 
@@ -52,7 +46,7 @@ kvstore::set() {
   # check for the timestamp marker
   if [[ "${__value:0:1}" == "@" ]]; then
     # retrieve the last occurence of the key
-    __data=$(grep "^${__key}:" "${STORE_PATH}" | tail -1)
+    __data=$(grep "^${__key}:" "${BSFPE_KVSTORE_PATH}" | tail -1)
     [[ -z "${__data}" ]] && return 1
 
     # split data in parts
@@ -74,7 +68,7 @@ kvstore::set() {
   fi
 
   # add the new entry
-  echo "${__key}:${__ttl}:${__value_b64}" >> "${STORE_PATH}"
+  echo "${__key}:${__ttl}:${__value_b64}" >> "${BSFPE_KVSTORE_PATH}"
 }
 
 #.--
@@ -88,7 +82,7 @@ kvstore::get() {
   local __key, __value, __datetime
 
   # exit if the store does not exist
-  [[ ! -e "${STORE_PATH}" ]] && return 1
+  [[ ! -e "${BSFPE_KVSTORE_PATH}" ]] && return 1
 
   # retrieve the key from the cmdline
   __key="$1"
@@ -97,7 +91,7 @@ kvstore::get() {
   [[ -z "${__key}" ]] && return 1
 
   # retrieve the last occurence of the key
-  __value=$(grep "^${__key}:" "${STORE_PATH}" | tail -1)
+  __value=$(grep "^${__key}:" "${BSFPE_KVSTORE_PATH}" | tail -1)
   [[ -z "${__value}" ]] && return 1
 
   # split the data in parts
@@ -123,7 +117,7 @@ kvstore::del() {
   local __key, __value, __ttl, __datetime
 
   # exit if the store does not exist
-  [[ ! -e "${STORE_PATH}" ]] && return 1
+  [[ ! -e "${BSFPE_KVSTORE_PATH}" ]] && return 1
 
   # retrieve the key from the cmdline
   __key="$1"
@@ -132,7 +126,7 @@ kvstore::del() {
   [[ -z "${__key}" ]] && return 1
 
   # retrieve the last occurence of the key
-  __value=$(grep "^${__key}:" "${STORE_PATH}" | tail -1)
+  __value=$(grep "^${__key}:" "${BSFPE_KVSTORE_PATH}" | tail -1)
   [[ -z "${__value}" ]] && return 1
 
   # set the TTL to 300s from now
@@ -140,7 +134,7 @@ kvstore::del() {
   __ttl=$(( __datetime - 300 ))
 
   # add a new line in the store with only the key/ttl
-  echo "${__key}:${__ttl}:dummy" >> "${STORE_PATH}"
+  echo "${__key}:${__ttl}:dummy" >> "${BSFPE_KVSTORE_PATH}"
 }
 
 #.--
@@ -155,7 +149,7 @@ kvstore::clean() {
   local __datetime, __key, __value, __elements
 
   # exit if the store does not exist
-  [[ ! -e "${STORE_PATH}" ]] && return 1
+  [[ ! -e "${BSFPE_KVSTORE_PATH}" ]] && return 1
 
   __datetime=$(date "+%s")
 
@@ -166,7 +160,7 @@ kvstore::clean() {
     # split data
     [[ "${__value}" =~ ^([^:]+):([0-9]+):(.*) ]]
     __elements["${BASH_REMATCH[1]}"]="${__value}"
-  done < "${STORE_PATH}"
+  done < "${BSFPE_KVSTORE_PATH}"
 
   # create a temporary store with the elements
   for __key in "${!__elements[@]}"; do
@@ -178,11 +172,11 @@ kvstore::clean() {
     # remove expired items
     (( BASH_REMATCH[2] > 0 )) && (( __datetime > BASH_REMATCH[2] )) && continue
 
-    echo "${__value}" >> "${STORE_PATH}.tmp"
+    echo "${__value}" >> "${BSFPE_KVSTORE_PATH}.tmp"
   done
 
   # switch to new store
-  mv -f "${STORE_PATH}.tmp" "${STORE_PATH}"
+  mv -f "${BSFPE_KVSTORE_PATH}.tmp" "${BSFPE_KVSTORE_PATH}"
 }
 
 #.--
@@ -196,7 +190,7 @@ kvstore::print() {
   local __datetime, __key, __value, __ttl, __elements
 
   # exit if the store does not exist
-  [[ ! -e "${STORE_PATH}" ]] && return 1
+  [[ ! -e "${BSFPE_KVSTORE_PATH}" ]] && return 1
 
   __datetime=$(date "+%s")
 
@@ -206,7 +200,7 @@ kvstore::print() {
     # split data
     [[ "${__value}" =~ ^([^:]+):([0-9]+):(.*) ]]
     __elements[${BASH_REMATCH[1]}]=${BASH_REMATCH[2]}
-  done < "${STORE_PATH}"
+  done < "${BSFPE_KVSTORE_PATH}"
 
   # print everything
   for __key in "${!__elements[@]}"; do
