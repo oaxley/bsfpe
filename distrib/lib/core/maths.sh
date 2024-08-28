@@ -14,7 +14,7 @@ __values=()
 #.1 Add value to the array
 #.2 (value1, value2, ...){The values to insert into the array.}
 #.4 Add 3 values to the array
-#.4 maths::append 10 20 30
+#.4 $ maths::append 10 20 30
 #.--
 maths::append() {
   __values+=("$@")
@@ -22,6 +22,9 @@ maths::append() {
 
 #.--
 #.1 Clear the whole array
+#.3H All the values present in the array are removed.
+#.4 Clean the array
+#.4 $ maths::clear
 #.--
 maths::clear() {
   __values=()
@@ -29,6 +32,9 @@ maths::clear() {
 
 #.--
 #.1 Returns the length of the array
+#.3H This function will return the number of values currently in the array.
+#.4 Get the number of values in the array
+#.4 $ maths::length
 #.--
 maths::length() {
   echo ${#__values[@]}
@@ -36,6 +42,9 @@ maths::length() {
 
 #.--
 #.1 Returns the minimum value of the array
+#.3H The function will return the minimum value currently in the array.
+#.4 Return the min
+#.4 $ maths::minimum
 #.--
 maths::minimum() {
   local __min=${__values[0]}
@@ -49,6 +58,9 @@ maths::minimum() {
 
 #.--
 #.1 Returns the maximum value of the array
+#.3H The function will return the maximum value currently in the array.
+#.4 Return the max
+#.4 $ maths::maximum
 #.--
 maths::maximum() {
   local __max=${__values[0]}
@@ -62,6 +74,9 @@ maths::maximum() {
 
 #.--
 #.1 Returns the sum of the array
+#.3H The function will sum all the values in the array.
+#.4 Sum all the values
+#.4 $ maths::sum
 #.--
 maths::sum() {
   local __sum=0
@@ -73,7 +88,10 @@ maths::sum() {
 
 #.--
 #.1 Returns the average of the array
+#.3H The function will return the mean value of the array.
 #.3F The value returned has 3 decimals.
+#.4 Return the mean
+#.4 $ maths::average
 #.--
 maths::average() {
   local __sum=$(maths::sum)
@@ -83,7 +101,10 @@ maths::average() {
 
 #.--
 #.1 Returns the median value of the array
+#.3H The function will return the median value of the array.
 #.3F The value returned has 3 decimals.
+#.4 Return the median value
+#.4 $ maths::median
 #.--
 maths::median() {
   local __length=${#__values[@]}
@@ -100,7 +121,10 @@ maths::median() {
 
 #.--
 #.1 Returns the variance of the array
+#.3H The function will return the variance of the values currently in the array.
 #.3F The value returned has 3 decimals.
+#.4 Return the variance
+#.4 $ maths::variance
 #.--
 maths::variance() {
   local __mean=$(maths::average)
@@ -117,7 +141,10 @@ maths::variance() {
 
 #.--
 #.1 Returns the standard deviation
+#.3H The function will return the standard deviation of the values currently in the array.
 #.3F The value returned has 3 decimals.
+#.4 Return the stddev
+#.4 $ maths::stddev
 #.--
 maths::stddev() {
   local __variance
