@@ -6,7 +6,7 @@
 # @brief    Basic statistical maths functions
 
 #----- globals
-__values=()
+__maths_values=()
 
 #----- functions
 
@@ -17,7 +17,7 @@ __values=()
 #.4 $ maths::append 10 20 30
 #.--
 maths::append() {
-  __values+=("$@")
+  __maths_values+=("$@")
 }
 
 #.--
@@ -27,7 +27,7 @@ maths::append() {
 #.4 $ maths::clear
 #.--
 maths::clear() {
-  __values=()
+  __maths_values=()
 }
 
 #.--
@@ -37,7 +37,7 @@ maths::clear() {
 #.4 $ maths::length
 #.--
 maths::length() {
-  echo ${#__values[@]}
+  echo ${#__maths_values[@]}
 }
 
 #.--
@@ -47,8 +47,8 @@ maths::length() {
 #.4 $ maths::minimum
 #.--
 maths::minimum() {
-  local __min=${__values[0]}
-  for __value in "${__values[@]}"; do
+  local __min=${__maths_values[0]}
+  for __value in "${__maths_values[@]}"; do
     if (( __value < __min )); then
       __min=${__value}
     fi
@@ -63,8 +63,8 @@ maths::minimum() {
 #.4 $ maths::maximum
 #.--
 maths::maximum() {
-  local __max=${__values[0]}
-  for __value in "${__values[@]}"; do
+  local __max=${__maths_values[0]}
+  for __value in "${__maths_values[@]}"; do
     if (( __value > __max )); then
       __max=${__value}
     fi
@@ -80,7 +80,7 @@ maths::maximum() {
 #.--
 maths::sum() {
   local __sum=0
-  for __value in "${__values[@]}"; do
+  for __value in "${__maths_values[@]}"; do
     __sum=$(( __sum + __value ))
   done
   echo "${__sum}"
@@ -95,7 +95,7 @@ maths::sum() {
 #.--
 maths::average() {
   local __sum=$(maths::sum)
-  local __len=${#__values[@]}
+  local __len=${#__maths_values[@]}
   echo "scale=3; ${__sum} / ${__len}" | bc -l
 }
 
@@ -107,10 +107,10 @@ maths::average() {
 #.4 $ maths::median
 #.--
 maths::median() {
-  local __length=${#__values[@]}
+  local __length=${#__maths_values[@]}
   local __middle=$(( __length / 2 ))
   # shellcheck disable=SC2207
-  local __sorted=($(printf "%s\n" "${__values[@]}" | sort -n ))
+  local __sorted=($(printf "%s\n" "${__maths_values[@]}" | sort -n ))
 
   if (( __length % 2 == 0 )); then
     echo "scale=3; ( ${__sorted[$__middle]} + ${__sorted[$__middle - 1]}) / 2" | bc -l
@@ -130,8 +130,8 @@ maths::variance() {
   local __mean=$(maths::average)
   local __sum=0
   local __diff=0
-  local __length=${#__values[@]}
-  for __value in "${__values[@]}"; do
+  local __length=${#__maths_values[@]}
+  for __value in "${__maths_values[@]}"; do
     __diff=$(echo "scale=3; ${__value} - ${__mean}" | bc -l)
     __sum=$(echo "scale=3; ${__sum} + ${__diff} * ${__diff}" | bc -l)
   done
@@ -163,7 +163,7 @@ maths::percentile() {
 
   local __percent="$1"
   # shellcheck disable=SC2207
-  local __sorted=($(printf "%s\n" "${__values[@]}" | sort -n ))
+  local __sorted=($(printf "%s\n" "${__maths_values[@]}" | sort -n ))
 
   # boundaries checking
   (( __percent < 0 || __percent > 100 )) && return 1
@@ -171,7 +171,7 @@ maths::percentile() {
   (( __percent == 100 )) && echo "${__sorted[-1]}" && return 0
 
   # compute the index
-  local __length=${#__values[@]}
+  local __length=${#__maths_values[@]}
   local __index=$(echo "scale=2; (${__percent} * (${__length} - 1)) / 100" | bc -l)
 
   # get the interger/decimal part
