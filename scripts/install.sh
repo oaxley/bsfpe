@@ -33,7 +33,10 @@ cp -R ${SCRIPT_DIR}/../distrib/* "${BSFPE_DIR}"
 # footer
 echo ""
 echo "Installed."
-echo "To load the library in your environment, do:"
-echo "    $ source ${BSFPE_DIR}/loader.sh"
+echo "Add the following line to your .bashrc:"
+echo "export BSFPE_LIBRARY_DIR=\"${BSFPE_DIR}\""
+echo ""
+echo "To load the library in your current environment (or in scripts), do:"
+echo "    $ source \${BSFPE_LIBRARY_DIR}/loader.sh"
 echo ""
 

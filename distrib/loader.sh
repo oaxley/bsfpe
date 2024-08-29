@@ -9,8 +9,10 @@
 # export our location for all the scripts
 # shellcheck disable=SC2128
 __dir=$(dirname "${BASH_SOURCE}")
-BSFPE_LIBRARY_DIR=$(realpath "${__dir}")
-export BSFPE_LIBRARY_DIR
+if [[ -z ${BSFPE_LIBRARY_DIR} ]]; then
+  BSFPE_LIBRARY_DIR=$(realpath "${__dir}")
+  export BSFPE_LIBRARY_DIR
+fi
 
 
 #----- functions
