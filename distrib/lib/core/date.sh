@@ -59,3 +59,45 @@ date::month_name() {
   [[ -z "$1" ]] && __datetime=$(date "+%s")
   date --date="@${__datetime}" "+%B"
 }
+
+#.--
+#.1 Add days to a date
+#.2 (days){Number of days to add}
+#.2 (date){(optional) Use \fBdate\fR as a date instead of today}
+#.3H Add the number of days specified to either the date passed in argument or the current date.
+#.3F The function returns True (0) if successful, False (1) otherwise.
+#.4 Add 3 days to the current date
+#.4 $ date::add_days 3
+#.4 Add 1 day to this date (given as epoch format)
+#.4 $ date::add_days 1 1725478996
+#.--
+date::add_days() {
+  local __days="$1"
+  [[ -z "${__days}" ]] && return 1
+
+  local __datetime="$2"
+  [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
+
+  echo $(( __datetime + __days * 86400 ))
+}
+
+#.--
+#.1 Substract days to a date
+#.2 (days){Number of days to substract}
+#.2 (date){(optional) Use \fBdate\fR as a date instead of today}
+#.3H Substract the number of days specified to either the date passed in argument or the current date.
+#.3F The function returns True (0) if successful, False (1) otherwise.
+#.4 Substract 3 days from the current date
+#.4 $ date::sub_days 3
+#.4 Substract 1 day from this date (given as epoch format)
+#.4 $ date::sub_days 1 1725478996
+#.--
+date::sub_days() {
+  local __days="$1"
+  [[ -z "${__days}" ]] && return 1
+
+  local __datetime="$2"
+  [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
+
+  echo $(( __datetime - __days * 86400 ))
+}
