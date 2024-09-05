@@ -58,3 +58,28 @@ date::weekday() {
   # retrieve the week day
   date --date="@${__datetime}" "+%A"
 }
+
+#.--
+#.1 Get the month name
+#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
+#.3H Compute the month from either \fBtoday\fR or the date passed in argument.
+#.4 Get the month from an epoch value
+#.4 $ date::month_name 1725478996      # output: September
+#.4 Get the day of the week from a standard date
+#.4 $ date::month_name "2024-09-04T19:43:16"   # output: Wednesday
+#.--
+date::month_name() {
+  local __datetime="$1"
+  [[ -z "$1" ]] && __datetime=$(date "+%s")
+
+  # detect epoch
+  [[ "${__datetime}" =~ ^[0-9]+$ ]]
+
+  # not an epoch
+  if (( $? == 1 )); then
+    __datetime=$(date::to_epoch "$1")
+  fi
+
+  # retrieve the week day
+  date --date="@${__datetime}" "+%B"
+}
