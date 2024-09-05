@@ -84,7 +84,7 @@ date::add_days() {
 #.--
 #.1 Substract days to a date
 #.2 (days){Number of days to substract}
-#.2 (date){(optional) Use \fBdate\fR as a date instead of today}
+#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
 #.3H Substract the number of days specified to either the date passed in argument or the current date.
 #.3F The function returns True (0) if successful, False (1) otherwise.
 #.4 Substract 3 days from the current date
@@ -100,4 +100,30 @@ date::sub_days() {
   [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
 
   echo $(( __datetime - __days * 86400 ))
+}
+
+#.--
+#.1 Compute if a year is leap
+#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
+#.3H Function will determine if a year is leap or not.
+#.3F The function returns True (0) if successful, False (1) otherwise.
+#.4 Is the current year leap?
+#.4 $ date::is_leap
+#.4 Is this year leap?
+#.4 $ date::is_leap 2024
+#.4 Is the year in this date, is leap?
+#.4 $date::is_leap 1725478996
+#.--
+date::is_leap() {
+  local __year="$1"
+  [[ -z "${__year}" ]] && __year=$(date "+%s")
+
+  # convert datetime to year
+  if (( ${#__year} > 4 )); then
+    __year=$(date --date="@${__year}" "+%Y")
+  fi
+
+  # algorithm to determine if a year is leap
+  (( ( __year % 4 == 0 && __year % 100 != 0 ) || __year % 400 == 0 )) && return 0
+  return 1
 }
