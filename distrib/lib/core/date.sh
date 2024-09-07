@@ -63,7 +63,7 @@ date::month_name() {
 #.--
 #.1 Add days to a date
 #.2 (days){Number of days to add}
-#.2 (date){(optional) Use \fBdate\fR as a date instead of today}
+#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
 #.3H Add the number of days specified to either the date passed in argument or the current date.
 #.3F The function returns True (0) if successful, False (1) otherwise.
 #.4 Add 3 days to the current date
@@ -167,4 +167,46 @@ date::yesterday() {
 
   # add 24 * 60 * 60 (86400) seconds
   echo "$(( __datetime - 86400 ))"
+}
+
+#.--
+#.1 Add hours to a date
+#.2 (days){Number of hours to add}
+#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
+#.3H Add the number of hours specified to either the date passed in argument or the current date.
+#.3F The function returns True (0) if successful, False (1) otherwise.
+#.4 Add 2 hours to the current date
+#.4 $ date::add_hours 2
+#.4 Add 6 hours to this date (given as epoch format)
+#.4 $ date::add_hours 6 1725478996
+#.--
+date::add_hours() {
+  local __hours="$1"
+  [[ -z "${__hours}" ]] && return 1
+
+  local __datetime="$2"
+  [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
+
+  echo "$(( __datetime + __hours ))"
+}
+
+#.--
+#.1 Substract hours to a date
+#.2 (days){Number of hours to substract}
+#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
+#.3H Substract the number of hours specified to either the date passed in argument or the current date.
+#.3F The function returns True (0) if successful, False (1) otherwise.
+#.4 Substract 2 hours to the current date
+#.4 $ date::sub_hours 2
+#.4 Substract 6 hours to this date (given as epoch format)
+#.4 $ date::sub_hours 6 1725478996
+#.--
+date::sub_hours() {
+  local __hours="$1"
+  [[ -z "${__hours}" ]] && return 1
+
+  local __datetime="$2"
+  [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
+
+  echo "$(( __datetime - __hours ))"
 }
