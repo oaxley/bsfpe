@@ -24,7 +24,7 @@ date::to_epoch() {
 #.2 (format){An optional format for the conversion (see below)}
 #.3H Convert an Epoch timestamp to its standard equivalent
 #.3F The default format for the conversion is "+%Y-%m-%dT%H:%M:%S". !!
-#.3F See date(1) for different format
+#.3F See date(1) for different format.
 #.4 Convert the date to its human readable equivalent
 #.4 $ date::from_epoch 1725478996   # output: 2024-09-04T19:43:16
 #.--
@@ -209,4 +209,75 @@ date::sub_hours() {
   [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
 
   echo "$(( __datetime - __hours ))"
+}
+
+#.--
+#.1 Returns the year
+#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
+#.3H This function will return the year of any date.
+#.3F The function returns True (0) if successful, False (1) otherwise.
+#.4 Return the year of today
+#.4 $ date::year
+#.4 Return the year of the date passed in argument
+#.4 $ date::year 1725478996
+#.--
+date::year() {
+  local __datetime="$1"
+  [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
+  date --date="@${__datetime}" "+%Y"
+}
+
+#.--
+#.1 Returns the month
+#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
+#.3H This function will return the month of any date.
+#.3F The function returns True (0) if successful, False (1) otherwise.
+#.4 Return the month of today
+#.4 $ date::month
+#.4 Return the month of the date passed in argument
+#.4 $ date::month 1725478996
+#.--
+date::month() {
+  local __datetime="$1"
+  [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
+  date --date="@${__datetime}" "+%m"
+}
+
+#.--
+#.1 Returns the calendar day
+#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
+#.3H This function will return the calendar day of any date.
+#.3F The function returns True (0) if successful, False (1) otherwise.
+#.4 Return the day of today
+#.4 $ date::day
+#.4 Return the day of the date passed in argument
+#.4 $ date::day 1725478996
+#.--
+date::day() {
+  local __datetime="$1"
+  [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
+  date --date="@${__datetime}" "+%d"
+}
+
+#.--
+#.1 Returns the date
+#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
+#.2 (format){An optional format for the conversion (see below)}
+#.3H This function will return only the date part of any dates. !!
+#.3H The output format by default is "+%Y-%m-%d".
+#.3F See date(1) for different format.
+#.3F The function returns True (0) if successful, False (1) otherwise.
+#.4 Return the date of today
+#.4 $ date::date
+#.4 Return the date with a specific format
+#.4 $ date::date 1725478996 "+%Y/%m/%d"
+#.--
+date::day() {
+  local __datetime="$1"
+  [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
+
+  local __format="+%Y-%m-%d"
+  [[ -n "$2" ]] && __format="$2"
+
+  date --date="@${__datetime}" "${__format}"
 }
