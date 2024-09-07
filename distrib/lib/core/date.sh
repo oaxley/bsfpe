@@ -127,3 +127,44 @@ date::is_leap() {
   (( ( __year % 4 == 0 && __year % 100 != 0 ) || __year % 400 == 0 )) && return 0
   return 1
 }
+
+#.--
+#.1 Return today's datetime
+#.3H This function returns the datetime of the day as Epoch.
+#.3F Date can be converted back with \fBdate::from_epoch\fR.
+#.4 Get the current datetime
+#.4 $ date::today
+#.--
+date::today() {
+  date "+%s"
+}
+
+#.--
+#.1 Return tomorrow's datetime
+#.3H This function returns the datetime of the next day as Epoch.
+#.3F Date can be converted back with \fBdate::from_epoch\fR.
+#.4 Get tomorrow's datetime
+#.4 $ date::tomorrow
+#.--
+date::tomorrow() {
+  # shellcheck disable=SC2155
+  local __datetime=$(date "+%s")
+
+  # add 24 * 60 * 60 (86400) seconds
+  echo "$(( __datetime + 86400 ))"
+}
+
+#.--
+#.1 Return yesterday's datetime
+#.3H This function returns the datetime of the previous day as Epoch.
+#.3F Date can be converted back with \fBdate::from_epoch\fR.
+#.4 Get yesterday's datetime
+#.4 $ date::yesterday
+#.--
+date::yesterday() {
+  # shellcheck disable=SC2155
+  local __datetime=$(date "+%s")
+
+  # add 24 * 60 * 60 (86400) seconds
+  echo "$(( __datetime - 86400 ))"
+}
