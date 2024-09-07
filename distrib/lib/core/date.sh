@@ -3,23 +3,23 @@
 # @author   Sebastien LEGRAND
 # @license  MIT License
 #
-# @brief    Functions to manipulate the dates and times
+# @brief    Functions to manipulate the date
 
-#----- functions
+#----- public functions
 
 #.--
-#.1 Convert a date to Epoch
+#.1 Convert a datetime to Epoch
 #.2 (value){A date/time value}
 #.3H Convert a standard datetime to its equivalent in Epoch.
 #.4 Convert the date
 #.4 $ date::to_epoch "2024-09-04T19:43:16"    # output: 1725478996
 #.--
-date::to_epoch() {
+datetime::to_epoch() {
   date --date="$1" "+%s"
 }
 
 #.--
-#.1 Convert a date from Epoch
+#.1 Convert a datetime from Epoch
 #.2 (value){An Epoch value}
 #.2 (format){An optional format for the conversion (see below)}
 #.3H Convert an Epoch timestamp to its standard equivalent
@@ -28,7 +28,7 @@ date::to_epoch() {
 #.4 Convert the date to its human readable equivalent
 #.4 $ date::from_epoch 1725478996   # output: 2024-09-04T19:43:16
 #.--
-date::from_epoch() {
+datetime::from_epoch() {
   local __format="+%Y-%m-%dT%H:%M:%S"
   [[ -n "$2" ]] && __format="$2"
   date --date="@$1" "${__format}"
@@ -131,7 +131,7 @@ date::is_leap() {
 #.--
 #.1 Return today's datetime
 #.3H This function returns the datetime of the day as Epoch.
-#.3F Date can be converted back with \fBdate::from_epoch\fR.
+#.3F Date can be converted back with \fBdate::date\fR.
 #.4 Get the current datetime
 #.4 $ date::today
 #.--
@@ -142,7 +142,7 @@ date::today() {
 #.--
 #.1 Return tomorrow's datetime
 #.3H This function returns the datetime of the next day as Epoch.
-#.3F Date can be converted back with \fBdate::from_epoch\fR.
+#.3F Date can be converted back with \fBdate::date\fR.
 #.4 Get tomorrow's datetime
 #.4 $ date::tomorrow
 #.--
@@ -157,7 +157,7 @@ date::tomorrow() {
 #.--
 #.1 Return yesterday's datetime
 #.3H This function returns the datetime of the previous day as Epoch.
-#.3F Date can be converted back with \fBdate::from_epoch\fR.
+#.3F Date can be converted back with \fBdate::date\fR.
 #.4 Get yesterday's datetime
 #.4 $ date::yesterday
 #.--
@@ -165,51 +165,10 @@ date::yesterday() {
   # shellcheck disable=SC2155
   local __datetime=$(date "+%s")
 
-  # add 24 * 60 * 60 (86400) seconds
+  # substract 24 * 60 * 60 (86400) seconds
   echo "$(( __datetime - 86400 ))"
 }
 
-#.--
-#.1 Add hours to a date
-#.2 (days){Number of hours to add}
-#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
-#.3H Add the number of hours specified to either the date passed in argument or the current date.
-#.3F The function returns True (0) if successful, False (1) otherwise.
-#.4 Add 2 hours to the current date
-#.4 $ date::add_hours 2
-#.4 Add 6 hours to this date (given as epoch format)
-#.4 $ date::add_hours 6 1725478996
-#.--
-date::add_hours() {
-  local __hours="$1"
-  [[ -z "${__hours}" ]] && return 1
-
-  local __datetime="$2"
-  [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
-
-  echo "$(( __datetime + __hours ))"
-}
-
-#.--
-#.1 Substract hours to a date
-#.2 (days){Number of hours to substract}
-#.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
-#.3H Substract the number of hours specified to either the date passed in argument or the current date.
-#.3F The function returns True (0) if successful, False (1) otherwise.
-#.4 Substract 2 hours to the current date
-#.4 $ date::sub_hours 2
-#.4 Substract 6 hours to this date (given as epoch format)
-#.4 $ date::sub_hours 6 1725478996
-#.--
-date::sub_hours() {
-  local __hours="$1"
-  [[ -z "${__hours}" ]] && return 1
-
-  local __datetime="$2"
-  [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
-
-  echo "$(( __datetime - __hours ))"
-}
 
 #.--
 #.1 Returns the year
@@ -260,24 +219,18 @@ date::day() {
 }
 
 #.--
-#.1 Returns the date
+#.1 Returns the date formated
 #.2 (date){(optional) Use \fBdate\fR as a reference instead of today}
-#.2 (format){An optional format for the conversion (see below)}
 #.3H This function will return only the date part of any dates. !!
 #.3H The output format by default is "+%Y-%m-%d".
-#.3F See date(1) for different format.
 #.3F The function returns True (0) if successful, False (1) otherwise.
 #.4 Return the date of today
 #.4 $ date::date
-#.4 Return the date with a specific format
-#.4 $ date::date 1725478996 "+%Y/%m/%d"
+#.4 Return the date somewhere in the future
+#.4 $ date::date 1725478996
 #.--
-date::day() {
+date::date() {
   local __datetime="$1"
   [[ -z "${__datetime}" ]] && __datetime=$(date "+%s")
-
-  local __format="+%Y-%m-%d"
-  [[ -n "$2" ]] && __format="$2"
-
-  date --date="@${__datetime}" "${__format}"
+  date --date="@${__datetime}" "+%Y-%m-%d"
 }
