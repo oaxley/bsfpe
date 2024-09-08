@@ -27,3 +27,15 @@ system::pushd() {
 system::popd() {
   popd >dev/null 2>&1 || return
 }
+
+#.--
+#.1 Count the number of files in a directory
+#.2 (path){The path to the directory.}
+#.3H This function will return the number of files present in the directory specified by \fBpath\fR.
+#.3F The function returns True (0) if successful, False (1) otherwise.
+#.4 Count the number of hidden files in HOME
+#.4 $ system::num_files $HOME/.*
+#.--
+system::num_files() {
+  echo "$#"
+}
