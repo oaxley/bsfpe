@@ -25,7 +25,7 @@ system::pushd() {
 #.4 $ system::popd
 #.--
 system::popd() {
-  popd >dev/null 2>&1 || return
+  popd >/dev/null 2>&1 || return
 }
 
 #.--
