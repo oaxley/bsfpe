@@ -94,7 +94,11 @@ while (( $# > 0 )); do
 done
 
 # create the target directory
-mkdir -p "${LOG_PATH}" 2>/dev/null || logger::error "Unable to create directory ${LOG_PATH}" && exit 1
+mkdir -p "${LOG_PATH}" 2>/dev/null
+if (( $? > 0 )); then
+  logger::error "Unable to create directory ${LOG_PATH}"
+  exit 1
+fi
 
 # ensure we are in the correct directory before starting
 system::pushd "${LOG_PATH}"
