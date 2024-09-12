@@ -42,6 +42,12 @@ RUN : \
 # copy the source files in the generic user home
 COPY --chown=${USER}:${GROUP} distrib/ /home/${USER}/.bsfpe
 
+RUN : \
+    && mkdir -p /home/${USER}/examples
+
+COPY --chown=${USER}:${GROUP} examples/ /home/${USER}/examples/
+
 # last steps
+ENV BSFPE_LIBRARY_DIR=/home/${USER}/.bsfpe
 WORKDIR /home/${USER}
 USER ${USER}
