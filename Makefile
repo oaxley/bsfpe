@@ -3,18 +3,18 @@
 #
 # @brief	Makefile to build and run the docker container
 
-.PHONY: build run clean manpages install
+.PHONY: docker-build docker-run docker-clean manpages install
 
 # build a new image
-build:
-	@docker build -f docker/Dockerfile -t linuxvm:latest .
+docker-build:
+	@docker build -f docker/Dockerfile -t bsfpe:latest .
 
 # create a new interactive container from the image
-run:
-	@docker run -it --rm linuxvm:latest
+docker-run:
+	@docker run -it --rm bsfpe:latest
 
 # clean docker system (dangling images + cache)
-clean:
+docker-clean:
 	@docker system prune
 
 # create the manpages
