@@ -56,15 +56,25 @@ Once the library is installed, add the following export in your `.bashrc` file:
 export BSFPE_LIBRARY_DIR="${HOME}/.bsfpe"
 ```
 
-The manpages will be installed in `${HOME}/.bsfpe/man/man1` so you need to add this directory to
+The manpages will be installed in `${BSFPE_LIBRARY_DIR}/man/man1` so you need to add this directory to
 the environment variable `MANPATH` to access them.
 
 ``` bash
 # add manpages
-$ export MANPATH=${MANPATH}:${HOME}/.bsfpe/man
+$ export MANPATH=${MANPATH}:${BSFPE_LIBRARY_DIR}/man
 
 # get manpages for date::is_leap
 $ man bsfpe_date_is_leap
+```
+
+## Usage
+
+Adding the library into your environment, or inside a script requires only to source the `loader.sh`
+script.
+
+``` bash
+# load the library into the environment
+$ source ${BSFPE_LIBRARY_DIR}/loader.sh
 ```
 
 ## Docker container
