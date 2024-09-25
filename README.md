@@ -67,6 +67,22 @@ $ export MANPATH=${MANPATH}:${HOME}/.bsfpe/man
 $ man bsfpe_date_is_leap
 ```
 
+## Docker container
+
+To test the library in a secure environment, a Dockerfile is present in the `docker` directory.  
+
+``` bash
+# build the container
+$ make docker-build
+
+# run an interactive session into it
+$ make docker-run
+```
+
+## Examples
+
+Some usage examples are available in the directory `examples`.
+
 ## License
 
 All the sources and files are under the [MIT License](https://choosealicense.com/licenses/mit/).
