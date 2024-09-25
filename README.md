@@ -1,24 +1,70 @@
 # Bash Scripts for Production Environment (BSFPE)
 
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Bash Script](https://img.shields.io/badge/bash_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 ## Purpose
 
-A suite of scripts and functions developed and used in production environments for several years.  
-They are listed here mainly for reference and because I got tired of rewriting them all the time as
-I switch jobs.
+This library contains Bash functions to help in the development of scripts. 
+For the most part, they have been used in production environments for years.  
+They are listed here for reference and inspiration (and without any guarantee) in case it might be of help.  
 
-## Description
+The library has been developed mainly for the Linux environment. No support is provided for other OS.
 
-### WORK IN PROGRESS
+## Installation
 
-## Usage
+By default, the installation is done in `${HOME}/.bsfpe`.
+To install the library under another location, set the environment variable `INSTALL_DIR` before 
+executing the installation.
 
-From your `.bashrc` or `.bash_profile` scripts, execute the loader:
+### Manpages
+
+The code is auto-documented to allow the creation of manpages from it. By default, manpages are not
+generated during installation.  
+
+If you wish to have them installed:
 
 ``` bash
-source ~/.bsfpe/loader.sh
+$ make manpages
+```
+
+### Installation
+
+1. With `make`
+
+A Makefile is present at the root directory. To install the library with make:
+
+``` bash
+$ make install
+```
+
+2. With the installer script
+
+An alternate way for installation is with the `install.sh` script present in the `scripts` directory
+of the library.
+
+``` bash
+$ cd scripts && ./install.sh
+```
+
+### Post Installation
+
+Once the library is installed, add the following export in your `.bashrc` file:
+
+``` bash
+# export the location of the library
+export BSFPE_LIBRARY_DIR="${HOME}/.bsfpe"
+```
+
+The manpages will be installed in `${HOME}/.bsfpe/man/man1` so you need to add this directory to
+the environment variable `MANPATH` to access them.
+
+``` bash
+# add manpages
+$ export MANPATH=${MANPATH}:${HOME}/.bsfpe/man
+
+# get manpages for date::is_leap
+$ man bsfpe_date_is_leap
 ```
 
 ## License
