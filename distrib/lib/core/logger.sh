@@ -73,7 +73,7 @@ logger::_fromName() {
 #.4 Set the LOG Level to CRITICAL
 #.4 $ logger::setLogLevel CRITICAL
 #.--
-logger::setLogLevel() {
+logger::set_log_level() {
   BSFPE_DEFAULT_LOGGER_LEVEL=$(logger::_fromName "$1")
 }
 
