@@ -67,6 +67,42 @@ $ export MANPATH=${MANPATH}:${BSFPE_LIBRARY_DIR}/man
 $ man bsfpe_date_is_leap
 ```
 
+## Functions
+
+Here is a list of available functions.
+
+### The core functions
+
+#### Date manipulation with `date::` / `datetime::`
+
+- Functions to convert a datetime from and to Epoch.
+
+```
+datetime::to_epoch(), datetime::from_epoch()
+```
+
+- Functions to retrieve the day or month name
+
+```
+date::weekday(), date::month_name()
+``` 
+
+- Functions to retrieve constituents from a datetime
+
+```
+date::year(), date::month(), date::day(), date::date()
+```
+
+- Date arithmetics
+
+```
+date::add_days(), date::sub_days(), date::today(), date::tomorrow(), date::yesterday()
+```
+- Function for leap year
+```
+date::is_leap()
+```
+
 ## Usage
 
 Adding the library into your environment, or inside a script requires only to source the `loader.sh`
