@@ -100,7 +100,7 @@ date::add_days(), date::sub_days(), date::today(), date::tomorrow(), date::yeste
 ```
 - Function for leap year `date::is_leap()`
 
-#### Time manipulation
+#### Time manipulation `time::`
 
 - Retrieve current time / format time
 
@@ -157,7 +157,7 @@ maths::variance(), maths::stddev()
 
 - Percentiles `maths::percentile()`
 
-#### Random numbers generators
+#### Random numbers generators `rand::`
 
 - Generate random numbers of 8, 16, 24, or 32 bits
 
@@ -167,7 +167,7 @@ random::rand24(), random::rand32()
 
 ```
 
-#### Strings manipulation
+#### Strings manipulation `strings::`
 
 - Remove blanks at the beginning, end or both
 
@@ -187,6 +187,7 @@ strings::to_upper(), strings::to_lower()
 ```
 strings::left(), strings::right(), strings::mid()
 ```
+
 
 
 ## Usage
