@@ -103,6 +103,47 @@ date::add_days(), date::sub_days(), date::today(), date::tomorrow(), date::yeste
 date::is_leap()
 ```
 
+#### Process execution `execute::`
+
+- Functions for returning constant status
+```
+execute::true(), execute::false()
+```
+- Functions to execute in directory or wait for a timer to elapse
+```
+execute::run_in(), execute::wait_until()
+```
+
+#### Logging facilities `logger::`
+
+```
+logger::set_log_level(), 
+logger::debug(), logger::info(), logger::warning(), logger::error(), logger::critical()
+```
+
+#### Basic mathematics functions `maths::`
+
+- Adding, clearing and counting values
+```
+maths::append(), maths::clear(), maths::length()
+```
+
+- Minimum, maximum, sum
+```
+maths::minimum(), maths::maximum(), maths::sum()
+```
+
+- Average, median, variance and standard deviation
+```
+maths::average(), maths::median()
+maths::variance(), maths::stddev()
+```
+
+- Percentiles
+```
+maths::percentile()
+```
+
 ## Usage
 
 Adding the library into your environment, or inside a script requires only to source the `loader.sh`
