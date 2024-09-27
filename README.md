@@ -98,9 +98,25 @@ date::year(), date::month(), date::day(), date::date()
 ```
 date::add_days(), date::sub_days(), date::today(), date::tomorrow(), date::yesterday()
 ```
-- Function for leap year
+- Function for leap year `date::is_leap()`
+
+#### Time manipulation
+
+- Retrieve current time / format time
+
 ```
-date::is_leap()
+time::time(), time::now()
+```
+
+- Extract time information
+
+```
+time::hours(), time::minutes(), time::seconds()
+```
+
+- time arithmetics
+```
+time::add_hours(), time::sub_hours()
 ```
 
 #### Process execution `execute::`
@@ -139,10 +155,39 @@ maths::average(), maths::median()
 maths::variance(), maths::stddev()
 ```
 
-- Percentiles
+- Percentiles `maths::percentile()`
+
+#### Random numbers generators
+
+- Generate random numbers of 8, 16, 24, or 32 bits
+
 ```
-maths::percentile()
+random::rand8(), random::rand16(), 
+random::rand24(), random::rand32()
+
 ```
+
+#### Strings manipulation
+
+- Remove blanks at the beginning, end or both
+
+```
+strings::ltrim(), strings::rtrim; strings::trim()
+```
+
+- Strings length `strings::length()`
+
+- Upper/lower case conversion
+
+```
+strings::to_upper(), strings::to_lower()
+```
+
+- Characters extraction
+```
+strings::left(), strings::right(), strings::mid()
+```
+
 
 ## Usage
 
