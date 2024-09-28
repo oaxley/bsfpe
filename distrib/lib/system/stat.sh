@@ -46,7 +46,7 @@ system::file_size() {
 #.4 Get the permissions
 #.4 $ system::file_perm /bin/ls
 #.--
-system::file_perm() {
+system::file_perms() {
   local __filename="$1"
   [[ ! -e ${__filename} ]] && return 1
 
