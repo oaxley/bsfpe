@@ -244,6 +244,24 @@ git::last_commit_sha1(), git::last_commit_sha1_short()
 - Check if a key exists `kvstore::is_exist()`
 
 
+### Network 
+
+- Retrieve MAC & IP addresses
+```
+network::mac_address(), network::ip_address()
+```
+
+- Host ID, hostname and FQDN
+```
+network::hostid(), network::fqdn(), network::hostname()
+```
+- Test if a connection is opened `network::zero_connect()`
+- Create a TCP listener `network::fake_server()`
+- Multicast receiver/publisher
+```
+network::mcast_recv(), network::mcast_pub()
+```
+
 ## Usage
 
 Adding the library into your environment, or inside a script requires only to source the `loader.sh`
