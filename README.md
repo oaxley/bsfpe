@@ -195,6 +195,7 @@ strings::left(), strings::right(), strings::mid()
 ```
 config::ini(), config::toml(), config::yaml()
 ```
+
 ### Docker container/image manipulation
 
 #### Container manipulation 
@@ -261,6 +262,66 @@ network::hostid(), network::fqdn(), network::hostname()
 ```
 network::mcast_recv(), network::mcast_pub()
 ```
+
+### System
+
+#### User management
+
+- Get user name and ID, group name and ID
+```
+system::user_name(), system::user_id(), 
+system::user_group_name(), system::user_group_id()
+```
+- Get all the groups name/id for a user
+```
+system::user_groups_name(), system::user_groups_id()
+```
+- Check if a group / user exist 
+```
+system::is_group(), system::is_user()
+```
+- Get a group name / id
+```
+system::get_group_name(), system::get_group_id()
+```
+- Get a user name / id
+```
+system::get_user_name(), system::get_user_id()
+```
+
+#### OS management
+
+- Get the OS name and version
+```
+system::os_name(), system::os_version()
+```
+
+#### CPU management
+
+- Get the CPU type, count and check for flags
+```
+system::cpu_type(), system::cpu_count(), 
+system::is_cpu_flag()
+```
+
+#### Patches 
+
+- Create, apply and revert a patch
+```
+system::patch_create(), system::patch_apply(), 
+system::patch_revert()
+```
+#### Files management
+
+- Get last access time `system::file_access_time()`
+- File size `system::file_size()`
+- File permissions `system::file_perms()`
+- Compare 2 files `system::file_compare()`
+- Push / Pop directory
+```
+system::pushd(), system::popd()
+```
+- Files count in a directory `system::num_files()`
 
 ## Usage
 
