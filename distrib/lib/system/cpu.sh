@@ -37,7 +37,7 @@ system::cpu_count() {
 #.4 Check for the 'cpuid' flag
 #.4 $ system::cpu_flag cpuid
 #.--
-system::cpu_flag() {
+system::is_cpu_flag() {
   grep 'flags' /proc/cpuinfo | head -1 | xargs -n 1 | grep "^$1$" >/dev/null
   return $?
 }
