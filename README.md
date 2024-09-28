@@ -188,6 +188,60 @@ strings::to_upper(), strings::to_lower()
 strings::left(), strings::right(), strings::mid()
 ```
 
+### Configuration parsers
+
+- INI, TOML and YAML configuration key/value extraction
+
+```
+config::ini(), config::toml(), config::yaml()
+```
+### Docker container/image manipulation
+
+#### Container manipulation 
+
+- Retrieve container log path `docker::log_path()`
+- Retrieve the name / ID of the container
+```
+docker::get_name(), docker::get_id()
+```
+
+- Container image id
+```
+docker::image_id(), docker::image_id_short()
+```
+
+#### Image manipulation
+
+- Image tag `docker::image_tag`
+- Image name and version
+```
+docker::image_name(), docker::image_version()
+```
+- Image size `docker::image_size()`
+
+### Git manipulation
+
+- Git repository name and URL
+```
+git::repo_name(), git::repo_url()
+```
+
+- Local directory `git::local_dir()`
+- Last commit sha1
+```
+git::last_commit_sha1(), git::last_commit_sha1_short()
+```
+- Active branch `git::active_branch()`
+- Git worktree `git::is_working_tree()`
+
+### Key/Value store
+
+- Set a new value or TTL `kvstore::set()`
+- Get a value associated with a key `kvstore::get()`
+- Remove a key `kvstore::del()`
+- Clean the key store `kvstore::clean()`
+- Print available keys `kvstore::print()`
+- Check if a key exists `kvstore::is_exist()`
 
 
 ## Usage
