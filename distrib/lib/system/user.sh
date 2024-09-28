@@ -17,7 +17,7 @@ system::user_id() {
 #.1 Return the current group id
 #.3H This function returns the ID number of the user group
 #.--
-system::user_group() {
+system::user_group_id() {
   id -g
 }
 
@@ -42,7 +42,7 @@ system::user_group_name() {
 #.3H This function returns all the IDs from the groups the user is member of
 #.3F The groups are separated by a comma ','
 #.--
-system::user_groups() {
+system::user_groups_id() {
   id -G | tr " " ","
 }
 
