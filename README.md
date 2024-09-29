@@ -323,6 +323,40 @@ system::pushd(), system::popd()
 ```
 - Files count in a directory `system::num_files()`
 
+#### Miscellaneous
+
+#### Lock management `lock::`
+
+- Acquire a lock `lock::acquire()`
+- Release a lock `lock::release()`
+
+#### Formatter `format::`
+
+- Format size to human readable `format::size()`
+
+#### UUID `uuid::`
+
+- Generate UUID v4 `uuid::uuidv4()`
+
+#### LIFO Stack `stack::`
+
+- Stack size `stack::count()`
+- Print the stack `stack::print()`
+- Push and Pop element
+```
+stack::push(), stack::pop()
+```
+- Read the top value `stack::top()`
+- Duplicate and drop
+```
+stack::dup(), stack::drop()
+```
+- Swap and rotate values
+```
+stack::swap(), stack::rotate()
+```
+- Clear the stack `stack::clear()`
+
 ## Usage
 
 Adding the library into your environment, or inside a script requires only to source the `loader.sh`
