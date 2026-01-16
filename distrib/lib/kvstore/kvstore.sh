@@ -33,8 +33,12 @@ fi
 #.4 $ kvstore::set my_string @300
 #.--
 kvstore::set() {
-  local __key, __value, __data, __ttl
-  local __value_b64, __datetime
+  local __key
+  local __value
+  local __data
+  local __ttl
+  local __value_b64
+  local __datetime
 
   # retrieve the key and the value from the cmdline
   __key="$1"; shift
@@ -79,7 +83,9 @@ kvstore::set() {
 #.4 $ kvstore::get my_string
 #.--
 kvstore::get() {
-  local __key, __value, __datetime
+  local __key
+  local __value
+  local __datetime
 
   # exit if the store does not exist
   [[ ! -e "${BSFPE_KVSTORE_PATH}" ]] && return 1
@@ -114,7 +120,10 @@ kvstore::get() {
 #.4 $ kvstore::del my_string
 #.--
 kvstore::del() {
-  local __key, __value, __ttl, __datetime
+  local __key
+  local __value
+  local __ttl
+  local __datetime
 
   # exit if the store does not exist
   [[ ! -e "${BSFPE_KVSTORE_PATH}" ]] && return 1
@@ -146,7 +155,10 @@ kvstore::del() {
 #.4 $ kvstore::clean
 #.--
 kvstore::clean() {
-  local __datetime, __key, __value, __elements
+  local __datetime
+  local __key
+  local __value
+  local __elements
 
   # exit if the store does not exist
   [[ ! -e "${BSFPE_KVSTORE_PATH}" ]] && return 1
@@ -187,7 +199,11 @@ kvstore::clean() {
 #.4 $ kvstore::print
 #.--
 kvstore::print() {
-  local __datetime, __key, __value, __ttl, __elements
+  local __datetime
+  local __key
+  local __value
+  local __ttl
+  local __elements
 
   # exit if the store does not exist
   [[ ! -e "${BSFPE_KVSTORE_PATH}" ]] && return 1
